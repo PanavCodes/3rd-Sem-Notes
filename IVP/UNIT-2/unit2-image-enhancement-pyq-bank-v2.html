@@ -1,0 +1,2430 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>unit2-image-enhancement-pyq-bank-v2</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    color: #1f2328;
+    line-height: 1.6;
+    font-size: 16px;
+    background: #ffffff;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    margin-top: 24px;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 2em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #d1d9e0;
+  }
+  h2 {
+    font-size: 1.5em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #d1d9e0;
+    margin-top: 32px;
+  }
+  h3 {
+    font-size: 1.25em;
+    margin-top: 28px;
+  }
+  h4 {
+    font-size: 1.05em;
+  }
+  p, ul, ol { margin-top: 0; margin-bottom: 16px; }
+  ul, ol { padding-left: 2em; }
+  li { margin-top: 0.2em; }
+  li > p { margin-top: 16px; }
+  strong { font-weight: 600; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    background: #f6f8fa;
+    padding: 0.2em 0.4em;
+    border-radius: 6px;
+    font-size: 85%;
+  }
+  pre {
+    background: #f6f8fa;
+    padding: 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    line-height: 1.45;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 85%;
+  }
+  blockquote {
+    border-left: 0.25em solid #d1d9e0;
+    color: #59636e;
+    padding: 0 1em;
+    margin: 0 0 16px;
+  }
+  hr {
+    height: 1px;
+    border: none;
+    background: #d1d9e0;
+    margin: 28px 0;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid #d1d9e0;
+    padding: 6px 13px;
+    text-align: left;
+  }
+  th {
+    background: #f6f8fa;
+    font-weight: 600;
+  }
+  tr:nth-child(2n) {
+    background: #f6f8fa;
+  }
+  a { color: #0969da; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  mjx-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  mjx-container[display="true"] {
+    margin: 1em 0 !important;
+  }
+  .title-block-header { display: none; }
+
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">unit2-image-enhancement-pyq-bank-v2</h1>
+</header>
+<h1
+id="unit-2-image-enhancement-spatial-domain---solved-pyq-bank-v2">Unit
+2: Image Enhancement (Spatial Domain) - Solved PYQ Bank (v2)</h1>
+<p><strong>Course:</strong> Image and Video Processing (IVP)<br />
+<strong>Target Exam:</strong> Mid-Sem Prep (SVKM’s NMIMS MPSTME,
+Semester V)<br />
+<strong>Primary Sources:</strong> Uploaded Previous Year Question Papers
+(PYQs) &amp; <code>IVP UNIT 2.pptx</code> (Class Slides)<br />
+<strong>Syllabus Focus:</strong> Point Processing Operations, Histogram
+Equalization, and Smoothing Spatial Filters.<br />
+<strong>Strict Exclusion:</strong> No Frequency-Domain Filtering,
+Fourier Transforms, or Sharpening/Laplacian Filters. These are strictly
+isolated at the bottom.</p>
+<hr />
+<h2 id="part-a-topic-wise-pyq-frequency-pattern-analysis">📊 PART A:
+TOPIC-WISE PYQ FREQUENCY &amp; PATTERN ANALYSIS</h2>
+<p>An exhaustive examination of the NMIMS MPSTME past university term
+papers and re-exams (2022–2026) reveals that <strong>Unit 2 (Image
+Enhancement in the Spatial Domain)</strong> accounts for approximately
+<strong>25% to 35% of the total marks</strong> in any exam paper.</p>
+<p>This analysis is strictly based on <strong>in-syllabus Mid-Sem
+topics</strong> (Point Processing, Histogram Equalization, and Smoothing
+Filters). All sharpening, Laplacian, and frequency-domain topics have
+been excluded from this statistical mapping.</p>
+<h3 id="in-syllabus-topic-frequency-map">1. In-Syllabus Topic Frequency
+Map</h3>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 22%" />
+<col style="width: 18%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Syllabus Section</th>
+<th style="text-align: left;">Core Topic / Concept Tested</th>
+<th style="text-align: center;">Frequency</th>
+<th style="text-align: left;">Key NMIMS Papers / Years</th>
+<th style="text-align: center;">Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Histogram Processing</strong></td>
+<td style="text-align: left;">Discrete Histogram Equalization (numerical
+matrix or table)</td>
+<td style="text-align: center;"><strong>Extremely High</strong>
+(8x)</td>
+<td style="text-align: left;">Final Exam 2025-26 (Q2a), Final Exam
+2024-25 (Q3a), Re-Exam 2024-25 (Q4b), Final Exam 2022-23 (Q2a), Final
+Exam 2022-23 (Q3b), Test-I Aug 2025 (Set 1 - Q2), Lab Manual Exp 4,
+Re-Exam 2023-24 (Q3a)</td>
+<td style="text-align: center;">🔥 <strong>Very High</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Spatial Neighborhood
+Filters</strong></td>
+<td style="text-align: left;">Median Filter (3x3 convolved output on
+specified pixel with/without padding)</td>
+<td style="text-align: center;"><strong>High</strong> (5x)</td>
+<td style="text-align: left;">Final Exam 2025-26 (Q4a), Final Exam
+2024-25 (Q1a), Re-Exam 2024-25 (Q3d), Solved Paper 2014-15 (Q2c),
+Re-Exam 2023-24 (Q3b)</td>
+<td style="text-align: center;">🔥 <strong>Very High</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Spatial Neighborhood
+Filters</strong></td>
+<td style="text-align: left;">Linear Blurring Filters (Averaging 3x3/5x5
+or Weighted Averaging)</td>
+<td style="text-align: center;"><strong>High</strong> (4x)</td>
+<td style="text-align: left;">Re-Exam 2024-25 (Q4a), Solved Paper
+2014-15 (Q2c), Final Exam 2022-23 (Q10), Re-Exam 2023-24 (Q3b)</td>
+<td style="text-align: center;">⭐ <strong>High</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Point Processing</strong></td>
+<td style="text-align: left;">Power-Law (Gamma) and Log transformations
+(calculating intensity matrix)</td>
+<td style="text-align: center;"><strong>Medium</strong> (3x)</td>
+<td style="text-align: left;">Final Exam 2025-26 (Q5b), Re-Exam 2024-25
+(Q5a), Final Exam 2024-25 (Q1h)</td>
+<td style="text-align: center;">⭐ <strong>High</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Point Processing</strong></td>
+<td style="text-align: left;">Digital Negative / Complement (theory
+&amp; matrix calculation)</td>
+<td style="text-align: center;"><strong>Medium</strong> (2x)</td>
+<td style="text-align: left;">Re-Exam 2024-25 (Q5a), Re-Exam 2024-25
+(Q2a)</td>
+<td style="text-align: center;">🟡 <strong>Moderate</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Point Processing</strong></td>
+<td style="text-align: left;">Intensity-Level / Gray-Level Slicing
+(with/without background)</td>
+<td style="text-align: center;"><strong>Medium</strong> (3x)</td>
+<td style="text-align: left;">Re-Exam 2024-25 (Q2a), Final Exam 2024-25
+(Q5a), Lab Manual Exp 3</td>
+<td style="text-align: center;">⭐ <strong>High</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Point Processing</strong></td>
+<td style="text-align: left;">Piecewise Contrast Stretching (slope
+formulas &amp; matrix mapping)</td>
+<td style="text-align: center;"><strong>Medium</strong> (3x)</td>
+<td style="text-align: left;">Final Exam 2024-25 (Q2a), Final Exam Nov
+2024 (Q7b), Lab Manual Exp 3</td>
+<td style="text-align: center;">⭐ <strong>High</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Point Processing</strong></td>
+<td style="text-align: left;">Global Thresholding / Binarization</td>
+<td style="text-align: center;"><strong>Low</strong> (1x)</td>
+<td style="text-align: left;">Re-Exam 2024-25 (Q4b)</td>
+<td style="text-align: center;">🟡 <strong>Moderate</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="high-priority-exam-patterns-numerical-trends">2. High-Priority
+Exam Patterns &amp; Numerical Trends</h3>
+<ol type="1">
+<li><strong>The Combined Piecewise Contrast Stretching &amp; Histogram
+Equalization Pattern:</strong>
+<ul>
+<li>This is a heavy-weight <strong>10-mark question</strong> where
+students are given a matrix and asked to apply both piecewise contrast
+stretching using a coordinate graph and histogram equalization, and then
+comment on the visual effect of each.</li>
+</ul></li>
+<li><strong>The Blurring/Smoothing Multi-Filter Comparative
+Pattern:</strong>
+<ul>
+<li>Students are given a <span class="math inline">\(5 \times 5\)</span>
+sub-grid containing noise (salt and pepper or Gaussian) and asked to
+find the convolved output of a center pixel using different spatial
+filters: (1) Box/Mean filter, (2) Weighted average filter, (3) Median
+filter, and compare their performance.</li>
+</ul></li>
+<li><strong>The Discrete Histogram Equalization Layout:</strong>
+<ul>
+<li>NMIMS papers show two forms of HE questions:
+<ul>
+<li><strong>Grayscale Frequency Table:</strong> Given gray levels <span
+class="math inline">\(0-7\)</span> and pixel counts <span
+class="math inline">\(n_k\)</span>, find the equalized levels and plot
+the input/output histograms (e.g., Final Exam 2025-26 Q2a).</li>
+<li><strong>Small Matrix Grid:</strong> Given a <span
+class="math inline">\(3 \times 3\)</span>, <span class="math inline">\(4
+\times 4\)</span>, or <span class="math inline">\(8 \times 8\)</span>
+matrix, apply HE and construct the equalized output matrix (e.g., Lab
+Manual Exp 4, Re-Exam December 2024).</li>
+</ul></li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="part-b-chronological-pyq-extraction-study-directory">📂 PART B:
+CHRONOLOGICAL PYQ EXTRACTION &amp; STUDY DIRECTORY</h2>
+<hr />
+<h3 id="module-2.1-point-processing-operations">📥 MODULE 2.1: POINT
+PROCESSING OPERATIONS</h3>
+<h4
+id="pyq-1-log-transformation-of-massive-range-coordinates"><strong>PYQ
+1: Log Transformation of Massive Range Coordinates</strong></h4>
+<ul>
+<li><strong>Verification Status:</strong> 🟢 <strong>Verified
+PYQ</strong></li>
+<li><strong>Source:</strong> NMIMS Final Exam, Semester V, 2022-23 (Nov
+2022 - Q1h) &amp; Final Exam 2025-26 [2 Marks]</li>
+<li><strong>Question Wording:</strong> Two pixel values of an image are
+given as 0 and 1000. What is the resultant value after applying log
+transformation to the two pixels? Assume constant c=1. Comment on the
+results obtained.</li>
+<li><strong>Topic:</strong> Nonlinear point processing (Log
+Transformation).</li>
+<li><strong>Given Information:</strong>
+<ul>
+<li>Input intensities: <span class="math inline">\(r_1 = 0\)</span>,
+<span class="math inline">\(r_2 = 1000\)</span></li>
+<li>Scaling constant: <span class="math inline">\(c = 1\)</span></li>
+</ul></li>
+<li><strong>Required:</strong>
+<ul>
+<li>Transformed output values <span class="math inline">\(s_1\)</span>
+and <span class="math inline">\(s_2\)</span>.</li>
+<li>Brief analytical comment on the results.</li>
+</ul></li>
+</ul>
+<p>⭐ <strong>Formula:</strong> <span class="math display">\[s = c \cdot
+\log_{10}(1 + r)\]</span> <em>(Note: Common base-10 log is standard in
+NMIMS Unit 2 class presentations, but natural log <span
+class="math inline">\(\ln\)</span> can also be shown for complete
+coverage).</em></p>
+<p>🧠 <strong>Why the Formula Applies:</strong> The log transform
+compresses the dynamic range of an image by mapping a wide range of
+low-intensity values into a wider output range, while mapping extremely
+high-intensity values (like 1000) into a highly compressed, narrow range
+of output levels. Adding 1 prevents math errors when <span
+class="math inline">\(r = 0\)</span>.</p>
+<p>⚡ <strong>Step-by-Step Solution:</strong> * <strong>Step 1:
+Calculate output for <span class="math inline">\(r_1 =
+0\)</span>:</strong> <span class="math display">\[s_1 = 1 \cdot
+\log_{10}(1 + 0) = \log_{10}(1) = \mathbf{0}\]</span> * <strong>Step 2:
+Calculate output for <span class="math inline">\(r_2 = 1000\)</span>
+(Base-10):</strong> <span class="math display">\[s_2 = 1 \cdot
+\log_{10}(1 + 1000) = \log_{10}(1001) \approx \mathbf{3.0004}\]</span> *
+<strong>Step 3: Calculate output for <span class="math inline">\(r_2 =
+1000\)</span> (Natural Log alternative):</strong> <span
+class="math display">\[s_{2, \ln} = 1 \cdot \ln(1 + 1000) = \ln(1001)
+\approx \mathbf{6.9088}\]</span></p>
+<p>✍️ <strong>Final Exam Answer &amp; Comment:</strong> *
+<strong>Resultant values:</strong> For <span class="math inline">\(r=0
+\implies s = \mathbf{0}\)</span>. For <span class="math inline">\(r=1000
+\implies s \approx \mathbf{3.00}\)</span> (base-10) or <span
+class="math inline">\(\mathbf{6.91}\)</span> (natural log). *
+<strong>Comment:</strong> Applying a logarithmic transformation maps a
+massive range of input intensities <span class="math inline">\([0,
+1000]\)</span> into a highly compressed output range <span
+class="math inline">\([0, 3.00]\)</span>. This dynamic range compression
+is extremely useful in displaying Fourier spectra where high-energy
+peaks dominate, allowing lower-intensity structural details to be
+visualized simultaneously.</p>
+<hr />
+<h4 id="pyq-2-global-thresholding-binarization"><strong>PYQ 2: Global
+Thresholding / Binarization</strong></h4>
+<ul>
+<li><strong>Verification Status:</strong> 🟢 <strong>Verified
+PYQ</strong></li>
+<li><strong>Source:</strong> NMIMS Re-Exam, Batch 2023-24 (Dec 2024 -
+Q4b.1) [4 Marks]</li>
+<li><strong>Question Wording:</strong> Obtain the thresholded image for
+3 BPP image A shown below. Consider threshold value = 4. <span
+class="math display">\[A = \begin{bmatrix} 1 &amp; 2 &amp; 2 &amp; 2
+&amp; 2 \\ 3 &amp; 2 &amp; 4 &amp; 5 &amp; 2 \\ 2 &amp; 6 &amp; 6 &amp;
+7 &amp; 0 \\ 2 &amp; 6 &amp; 6 &amp; 5 &amp; 1 \\ 0 &amp; 2 &amp; 3
+&amp; 2 &amp; 1 \end{bmatrix}\]</span></li>
+<li><strong>Topic:</strong> Piecewise-linear thresholding.</li>
+<li><strong>Given Information:</strong>
+<ul>
+<li>Input 3 BPP (Bits Per Pixel) image matrix <span
+class="math inline">\(A\)</span> of size <span class="math inline">\(5
+\times 5\)</span>.</li>
+<li>Threshold parameter: <span class="math inline">\(T =
+4\)</span>.</li>
+<li>Dynamic range of 3 BPP image: <span class="math inline">\(L = 2^3 =
+8\)</span> gray levels (ranging from <span
+class="math inline">\(0\)</span> to <span
+class="math inline">\(7\)</span>).</li>
+</ul></li>
+<li><strong>Required:</strong> Thresholded binary output matrix.</li>
+</ul>
+<p>⭐ <strong>Formula:</strong> <span class="math display">\[s =
+\begin{cases} L-1 &amp; \text{if } r \ge T \\ 0 &amp; \text{if } r &lt;
+T \end{cases}\]</span> For a standard binary image representation, we
+map to <span class="math inline">\(\{0, 1\}\)</span>. For an
+intensity-scaled 3-bit image, we map to <span class="math inline">\(\{0,
+7\}\)</span> (where <span class="math inline">\(L-1 = 7\)</span>).</p>
+<p>⚡ <strong>Step-by-Step Solution:</strong> * <strong>Step 1: Apply
+threshold condition pixel-by-pixel:</strong> - If pixel intensity <span
+class="math inline">\(r(x,y) \ge 4 \implies s(x,y) = \text{High } (1
+\text{ or } 7)\)</span>. - If pixel intensity <span
+class="math inline">\(r(x,y) &lt; 4 \implies s(x,y) = \text{Low }
+(0)\)</span>. * <strong>Step 2: Map the rows:</strong> - <strong>Row
+1:</strong> <span class="math inline">\(1, 2, 2, 2, 2 \implies \text{All
+} &lt; 4 \implies [0, 0, 0, 0, 0]\)</span> - <strong>Row 2:</strong>
+<span class="math inline">\(3, 2, 4, 5, 2 \implies \text{Only } 4 \text{
+and } 5 \ge 4 \implies [0, 0, 1, 1, 0]\)</span> - <strong>Row
+3:</strong> <span class="math inline">\(2, 6, 6, 7, 0 \implies 6, 6, 7
+\ge 4 \implies [0, 1, 1, 1, 0]\)</span> - <strong>Row 4:</strong> <span
+class="math inline">\(2, 6, 6, 5, 1 \implies 6, 6, 5 \ge 4 \implies [0,
+1, 1, 1, 0]\)</span> - <strong>Row 5:</strong> <span
+class="math inline">\(0, 2, 3, 2, 1 \implies \text{All } &lt; 4 \implies
+[0, 0, 0, 0, 0]\)</span></p>
+<p>✍️ <strong>Final Exam Answer:</strong> * <strong>Standard Binary
+Output Matrix (<span class="math inline">\(\{0, 1\}\)</span>
+Scale):</strong> <span class="math display">\[s_{\text{binary}} =
+\begin{bmatrix} 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1
+&amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 1 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp;
+1 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+\end{bmatrix}\]</span> * <strong>3-Bit Scaled Output Matrix (<span
+class="math inline">\(\{0, 7\}\)</span> Scale):</strong> <span
+class="math display">\[s_{\text{scaled}} = \begin{bmatrix} 0 &amp; 0
+&amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 7 &amp; 7 &amp; 0 \\ 0 &amp;
+7 &amp; 7 &amp; 7 &amp; 0 \\ 0 &amp; 7 &amp; 7 &amp; 7 &amp; 0 \\ 0
+&amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}\]</span></p>
+<hr />
+<h4 id="pyq-3-multiple-point-processing-transformations"><strong>PYQ 3:
+Multiple Point-Processing Transformations</strong></h4>
+<ul>
+<li><strong>Verification Status:</strong> 🟢 <strong>Verified
+PYQ</strong></li>
+<li><strong>Source:</strong> NMIMS Re-Exam, Batch 2023-24 (Dec 2024 -
+Q5a) [10 Marks]</li>
+<li><strong>Question Wording:</strong> In gray level
+transformations,</li>
+</ul>
+<ol type="1">
+<li>Calculate the image negative, log, and power law transformations
+(for C=1 and gamma=0.5) of the given image. <span
+class="math display">\[I_{\text{in}} = \begin{bmatrix} 1 &amp; 4 &amp; 3
+&amp; 3 \\ 1 &amp; 2 &amp; 2 &amp; 6 \\ 1 &amp; 2 &amp; 0 &amp; 6 \\ 7
+&amp; 1 &amp; 5 &amp; 5 \end{bmatrix}\]</span></li>
+<li>What is Gamma Correction and how does the value of gamma affect the
+image?</li>
+</ol>
+<ul>
+<li><strong>Topic:</strong> Linear and nonlinear gray level
+transformations.</li>
+<li><strong>Given Information:</strong>
+<ul>
+<li>Input <span class="math inline">\(4 \times 4\)</span> image matrix
+of 3-bit depth (maximum gray level <span class="math inline">\(L-1 = 2^3
+- 1 = 7\)</span>).</li>
+<li>Parameters: <span class="math inline">\(c = 1\)</span>, <span
+class="math inline">\(\gamma = 0.5\)</span> (for power-law).</li>
+</ul></li>
+<li><strong>Required:</strong>
+<ul>
+<li>Image Negative matrix.</li>
+<li>Log Transformation matrix.</li>
+<li>Power-Law (Gamma) Transformation matrix.</li>
+<li>Descriptive explanation of Gamma Correction.</li>
+</ul></li>
+</ul>
+<p>⭐ <strong>Formulas:</strong> 1. <strong>Image Negative:</strong>
+<span class="math inline">\(s = (L - 1) - r \implies s = 7 - r\)</span>
+2. <strong>Log Transform:</strong> <span class="math inline">\(s = c
+\cdot \log_{10}(1 + r) \implies s = \log_{10}(1 + r)\)</span> 3.
+<strong>Power-Law (Gamma):</strong> <span class="math inline">\(s = c
+\cdot r^{\gamma} \implies s = r^{0.5} = \sqrt{r}\)</span></p>
+<p>⚡ <strong>Step-by-Step Solution:</strong></p>
+<h5 id="part-1-image-negative-matrix-calculation-s-7---r"><strong>Part
+1: Image Negative Matrix Calculation (<span class="math inline">\(s = 7
+- r\)</span>)</strong></h5>
+<ul>
+<li>Map each coordinate:
+<ul>
+<li>Row 1: <span class="math inline">\([1, 4, 3, 3] \rightarrow [7-1,
+7-4, 7-3, 7-3] = [6, 3, 4, 4]\)</span></li>
+<li>Row 2: <span class="math inline">\([1, 2, 2, 6] \rightarrow [7-1,
+7-2, 7-2, 7-6] = [6, 5, 5, 1]\)</span></li>
+<li>Row 3: <span class="math inline">\([1, 2, 0, 6] \rightarrow [7-1,
+7-2, 7-0, 7-6] = [6, 5, 7, 1]\)</span></li>
+<li>Row 4: <span class="math inline">\([7, 1, 5, 5] \rightarrow [7-7,
+7-1, 7-5, 7-5] = [0, 6, 2, 2]\)</span></li>
+</ul></li>
+<li><strong>Negative Matrix:</strong> <span
+class="math display">\[I_{\text{neg}} = \begin{bmatrix} 6 &amp; 3 &amp;
+4 &amp; 4 \\ 6 &amp; 5 &amp; 5 &amp; 1 \\ 6 &amp; 5 &amp; 7 &amp; 1 \\ 0
+&amp; 6 &amp; 2 &amp; 2 \end{bmatrix}\]</span></li>
+</ul>
+<h5
+id="part-2-log-transformation-matrix-calculation-s-log_101-r"><strong>Part
+2: Log Transformation Matrix Calculation (<span class="math inline">\(s
+= \log_{10}(1 + r)\)</span>)</strong></h5>
+<ul>
+<li>Calculate lookup table for <span class="math inline">\(r \in [0,
+7]\)</span>:
+<ul>
+<li><span class="math inline">\(r=0 \implies s = \log_{10}(1) =
+\mathbf{0.000}\)</span></li>
+<li><span class="math inline">\(r=1 \implies s = \log_{10}(2) \approx
+\mathbf{0.301}\)</span></li>
+<li><span class="math inline">\(r=2 \implies s = \log_{10}(3) \approx
+\mathbf{0.477}\)</span></li>
+<li><span class="math inline">\(r=3 \implies s = \log_{10}(4) \approx
+\mathbf{0.602}\)</span></li>
+<li><span class="math inline">\(r=4 \implies s = \log_{10}(5) \approx
+\mathbf{0.699}\)</span></li>
+<li><span class="math inline">\(r=5 \implies s = \log_{10}(6) \approx
+\mathbf{0.778}\)</span></li>
+<li><span class="math inline">\(r=6 \implies s = \log_{10}(7) \approx
+\mathbf{0.845}\)</span></li>
+<li><span class="math inline">\(r=7 \implies s = \log_{10}(8) \approx
+\mathbf{0.903}\)</span></li>
+</ul></li>
+<li><strong>Log Transformation Matrix (Base-10):</strong> <span
+class="math display">\[I_{\text{log}} = \begin{bmatrix} 0.301 &amp;
+0.699 &amp; 0.602 &amp; 0.602 \\ 0.301 &amp; 0.477 &amp; 0.477 &amp;
+0.845 \\ 0.301 &amp; 0.477 &amp; 0.000 &amp; 0.845 \\ 0.903 &amp; 0.301
+&amp; 0.778 &amp; 0.778 \end{bmatrix}\]</span></li>
+</ul>
+<h5
+id="part-3-power-law-transformation-matrix-calculation-s-sqrtr"><strong>Part
+3: Power-Law Transformation Matrix Calculation (<span
+class="math inline">\(s = \sqrt{r}\)</span>)</strong></h5>
+<ul>
+<li>Calculate lookup table for <span class="math inline">\(r \in [0,
+7]\)</span>:
+<ul>
+<li><span class="math inline">\(r=0 \implies s = \sqrt{0} =
+\mathbf{0.000}\)</span></li>
+<li><span class="math inline">\(r=1 \implies s = \sqrt{1} =
+\mathbf{1.000}\)</span></li>
+<li><span class="math inline">\(r=2 \implies s = \sqrt{2} \approx
+\mathbf{1.414}\)</span></li>
+<li><span class="math inline">\(r=3 \implies s = \sqrt{3} \approx
+\mathbf{1.732}\)</span></li>
+<li><span class="math inline">\(r=4 \implies s = \sqrt{4} =
+\mathbf{2.000}\)</span></li>
+<li><span class="math inline">\(r=5 \implies s = \sqrt{5} \approx
+\mathbf{2.236}\)</span></li>
+<li><span class="math inline">\(r=6 \implies s = \sqrt{6} \approx
+\mathbf{2.449}\)</span></li>
+<li><span class="math inline">\(r=7 \implies s = \sqrt{7} \approx
+\mathbf{2.646}\)</span></li>
+</ul></li>
+<li><strong>Power-Law Matrix (<span class="math inline">\(\gamma =
+0.5\)</span>):</strong> <span class="math display">\[I_{\text{power}} =
+\begin{bmatrix} 1.000 &amp; 2.000 &amp; 1.732 &amp; 1.732 \\ 1.000 &amp;
+1.414 &amp; 1.414 &amp; 2.449 \\ 1.000 &amp; 1.414 &amp; 0.000 &amp;
+2.449 \\ 2.646 &amp; 1.000 &amp; 2.236 &amp; 2.236
+\end{bmatrix}\]</span></li>
+</ul>
+<h5 id="part-4-explaining-gamma-correction"><strong>Part 4: Explaining
+Gamma Correction</strong></h5>
+<ul>
+<li><strong>Definition:</strong> Gamma correction is a non-linear
+operation used to encode and decode luminance or tristimulus values in
+video or still image systems. It corrects the non-linear relationship
+between a pixel’s digital value and the physical light output of a
+cathode-ray tube (CRT) or liquid-crystal display (LCD) monitor.</li>
+<li><strong>Luminance Distortion:</strong> Standard monitors have an
+inherent power-law response where light output intensity is proportional
+to input voltage raised to a power <span
+class="math inline">\(\gamma_{\text{monitor}} \approx 2.5\)</span>. This
+makes dark regions appear overly dark on screen.</li>
+<li><strong>How Gamma values affect the image:</strong>
+<ul>
+<li><strong><span class="math inline">\(\gamma &lt; 1\)</span>
+(Fractional Gamma):</strong> The transformation curve arches upward.
+This maps a narrow band of dark input values into a wider, brighter band
+of output values. <strong>This brightens the overall image</strong>,
+revealing details in shadows and low-contrast regions.</li>
+<li><strong><span class="math inline">\(\gamma &gt; 1\)</span> (Integer
+Gamma):</strong> The transformation curve arches downward. This
+compresses the mid-tones and stretches the highlights. <strong>This
+darkens the overall image</strong>, enhancing contrast in extremely
+bright or washed-out regions (e.g., aerial runway views).</li>
+</ul></li>
+</ul>
+<hr />
+<h4 id="pyq-4-piecewise-linear-contrast-stretching"><strong>PYQ 4:
+Piecewise-Linear Contrast Stretching</strong></h4>
+<ul>
+<li><strong>Verification Status:</strong> 🟢 <strong>Verified
+PYQ</strong></li>
+<li><strong>Source:</strong> NMIMS Re-Exam, Batch 2024-25 (Dec 2024 -
+Q7b) [10 Marks]</li>
+<li><strong>Question Wording:</strong> On the given image, perform
+contrast stretching using two location points <span
+class="math inline">\((r_1, s_1) = (5, 2)\)</span> and <span
+class="math inline">\((r_2, s_2) = (10, 13)\)</span>. <span
+class="math display">\[I = \begin{bmatrix} 1 &amp; 3 &amp; 5 &amp; 7
+&amp; 9 &amp; 11 &amp; 13 &amp; 15 \\ 1 &amp; 3 &amp; 5 &amp; 7 &amp; 9
+&amp; 11 &amp; 13 &amp; 15 \\ 1 &amp; 3 &amp; 5 &amp; 7 &amp; 9 &amp; 11
+&amp; 13 &amp; 15 \\ 1 &amp; 3 &amp; 5 &amp; 7 &amp; 9 &amp; 11 &amp; 13
+&amp; 15 \end{bmatrix}\]</span></li>
+<li><strong>Topic:</strong> Piecewise-linear contrast stretching.</li>
+<li><strong>Given Information:</strong>
+<ul>
+<li>Input <span class="math inline">\(4 \times 8\)</span> grayscale
+image matrix.</li>
+<li>Locational coordinates: <span class="math inline">\(r_1 =
+5\)</span>, <span class="math inline">\(s_1 = 2\)</span>, <span
+class="math inline">\(r_2 = 10\)</span>, <span class="math inline">\(s_2
+= 13\)</span>.</li>
+<li>Maximum intensity level for 4-bit representation: <span
+class="math inline">\(L - 1 = 15\)</span>.</li>
+</ul></li>
+<li><strong>Required:</strong>
+<ul>
+<li>Calculation of slopes <span class="math inline">\(\alpha\)</span>,
+<span class="math inline">\(\beta\)</span>, and <span
+class="math inline">\(\gamma\)</span>.</li>
+<li>Contrast-stretched output matrix.</li>
+</ul></li>
+</ul>
+<p>⭐ <strong>Formula:</strong> The piecewise-linear transformation is
+defined as: <span class="math display">\[s = \begin{cases} \alpha \cdot
+r &amp; 0 \le r &lt; r_1 \\ \beta \cdot (r - r_1) + s_1 &amp; r_1 \le r
+&lt; r_2 \\ \gamma \cdot (r - r_2) + s_2 &amp; r_2 \le r \le L-1
+\end{cases}\]</span></p>
+<p>Where the regional slopes are: <span class="math display">\[\alpha =
+\frac{s_1}{r_1}, \quad \beta = \frac{s_2 - s_1}{r_2 - r_1}, \quad \gamma
+= \frac{(L-1) - s_2}{(L-1) - r_2}\]</span></p>
+<p>⚡ <strong>Step-by-Step Solution:</strong> * <strong>Step 1:
+Calculate the Slopes:</strong> <span class="math display">\[\alpha =
+\frac{2}{5} = \mathbf{0.4}\]</span> <span class="math display">\[\beta =
+\frac{13 - 2}{10 - 5} = \frac{11}{5} = \mathbf{2.2}\]</span> <span
+class="math display">\[\gamma = \frac{15 - 13}{15 - 10} = \frac{2}{5} =
+\mathbf{0.4}\]</span></p>
+<ul>
+<li><strong>Step 2: Construct the Piecewise Equations:</strong>
+<ul>
+<li><strong>Region 1 (<span class="math inline">\(0 \le r &lt;
+5\)</span>):</strong> <span class="math inline">\(s = 0.4 \cdot
+r\)</span></li>
+<li><strong>Region 2 (<span class="math inline">\(5 \le r &lt;
+10\)</span>):</strong> <span class="math inline">\(s = 2.2 \cdot (r - 5)
++ 2\)</span></li>
+<li><strong>Region 3 (<span class="math inline">\(10 \le r \le
+15\)</span>):</strong> <span class="math inline">\(s = 0.4 \cdot (r -
+10) + 13\)</span></li>
+</ul></li>
+<li><strong>Step 3: Map each unique input intensity <span
+class="math inline">\(r\)</span> to <span
+class="math inline">\(s\)</span> (Rounding to nearest integer):</strong>
+<ul>
+<li><span class="math inline">\(r = 1 \implies s = 0.4 \cdot 1 = 0.4
+\approx \mathbf{0}\)</span></li>
+<li><span class="math inline">\(r = 3 \implies s = 0.4 \cdot 3 = 1.2
+\approx \mathbf{1}\)</span></li>
+<li><span class="math inline">\(r = 5 \implies s = 2.2 \cdot (5 - 5) + 2
+= \mathbf{2}\)</span></li>
+<li><span class="math inline">\(r = 7 \implies s = 2.2 \cdot (7 - 5) + 2
+= 2.2(2) + 2 = 6.4 \approx \mathbf{6}\)</span></li>
+<li><span class="math inline">\(r = 9 \implies s = 2.2 \cdot (9 - 5) + 2
+= 2.2(4) + 2 = 10.8 \approx \mathbf{11}\)</span></li>
+<li><span class="math inline">\(r = 11 \implies s = 0.4 \cdot (11 - 10)
++ 13 = 0.4(1) + 13 = 13.4 \approx \mathbf{13}\)</span></li>
+<li><span class="math inline">\(r = 13 \implies s = 0.4 \cdot (13 - 10)
++ 13 = 0.4(3) + 13 = 14.2 \approx \mathbf{14}\)</span></li>
+<li><span class="math inline">\(r = 15 \implies s = 0.4 \cdot (15 - 10)
++ 13 = 0.4(5) + 13 = \mathbf{15}\)</span></li>
+</ul></li>
+<li><strong>Step 4: Form the Stretched Matrix:</strong> Replace the
+columns with the mapped values:
+<ul>
+<li>Column 1 (<span class="math inline">\(r=1 \rightarrow
+s=0\)</span>)</li>
+<li>Column 2 (<span class="math inline">\(r=3 \rightarrow
+s=1\)</span>)</li>
+<li>Column 3 (<span class="math inline">\(r=5 \rightarrow
+s=2\)</span>)</li>
+<li>Column 4 (<span class="math inline">\(r=7 \rightarrow
+s=6\)</span>)</li>
+<li>Column 5 (<span class="math inline">\(r=9 \rightarrow
+s=11\)</span>)</li>
+<li>Column 6 (<span class="math inline">\(r=11 \rightarrow
+s=13\)</span>)</li>
+<li>Column 7 (<span class="math inline">\(r=13 \rightarrow
+s=14\)</span>)</li>
+<li>Column 8 (<span class="math inline">\(r=15 \rightarrow
+s=15\)</span>)</li>
+</ul></li>
+</ul>
+<p>✍ <em>Final Matrix Output:</em> <span
+class="math display">\[I_{\text{stretched}} = \begin{bmatrix} 0 &amp; 1
+&amp; 2 &amp; 6 &amp; 11 &amp; 13 &amp; 14 &amp; 15 \\ 0 &amp; 1 &amp; 2
+&amp; 6 &amp; 11 &amp; 13 &amp; 14 &amp; 15 \\ 0 &amp; 1 &amp; 2 &amp; 6
+&amp; 11 &amp; 13 &amp; 14 &amp; 15 \\ 0 &amp; 1 &amp; 2 &amp; 6 &amp;
+11 &amp; 13 &amp; 14 &amp; 15 \end{bmatrix}\]</span></p>
+<hr />
+<h4
+id="pyq-11-contrast-stretching-neighborhood-blurring-filter"><strong>PYQ
+11: Contrast Stretching &amp; Neighborhood Blurring Filter</strong></h4>
+<ul>
+<li><strong>Verification Status:</strong> 🟢 <strong>Verified
+PYQ</strong></li>
+<li><strong>Source:</strong> NMIMS Final Exam, Nov 2024 / Q7b [10
+Marks]</li>
+<li><strong>Question Wording:</strong> Explain the contrast stretching
+of an image and apply it on the given 4x4 image. Consider r1=1, s1=2,
+r2=5 and s2=6. Apply the average filter at underlined pixel of a given
+image. <span class="math display">\[I = \begin{bmatrix} 2 &amp; 1 &amp;
+2 &amp; 1 \\ 4 &amp; \underline{5} &amp; 5 &amp; 6 \\ 3 &amp; 2 &amp; 1
+&amp; 4 \\ 6 &amp; 2 &amp; 1 &amp; 6 \end{bmatrix}\]</span></li>
+<li><strong>Topic:</strong> Piecewise contrast stretching &amp; Standard
+Box/Average filtering.</li>
+<li><strong>Given Information:</strong>
+<ul>
+<li>Coordinates: <span class="math inline">\(r_1=1\)</span>, <span
+class="math inline">\(s_1=2\)</span>, <span
+class="math inline">\(r_2=5\)</span>, <span
+class="math inline">\(s_2=6\)</span>.</li>
+<li>Maximum intensity level: <span class="math inline">\(L-1 =
+7\)</span> (for a standard 3-bit image) or <span
+class="math inline">\(L-1=6\)</span> (max present).</li>
+<li>Target pixel for Average filter: Row 2, Column 2 (value
+<code>5</code>, underlined).</li>
+</ul></li>
+<li><strong>Required:</strong>
+<ul>
+<li>Piecewise slope variables (<span
+class="math inline">\(\alpha\)</span>, <span
+class="math inline">\(\beta\)</span>, <span
+class="math inline">\(\gamma\)</span>).</li>
+<li>Mapped contrast-stretched matrix.</li>
+<li>Convolved output of a <span class="math inline">\(3 \times
+3\)</span> box average filter at coordinates <span
+class="math inline">\((2,2)\)</span>.</li>
+</ul></li>
+</ul>
+<p>⭐ <strong>Formula:</strong> <span class="math display">\[\alpha =
+\frac{s_1}{r_1}, \quad \beta = \frac{s_2 - s_1}{r_2 - r_1}, \quad \gamma
+= \frac{(L-1) - s_2}{(L-1) - r_2}\]</span> <span
+class="math display">\[\text{Average Output} = \frac{1}{9}
+\sum_{i=1}^{9} z_i\]</span></p>
+<p>⚡ <strong>Step-by-Step Solution:</strong></p>
+<h5 id="part-1-piecewise-contrast-stretching-calculations"><strong>Part
+1: Piecewise Contrast Stretching Calculations</strong></h5>
+<ul>
+<li><strong>Step A: Compute Slopes (assuming standard 3-bit scale, <span
+class="math inline">\(L-1 = 7\)</span>):</strong> <span
+class="math display">\[\alpha = \frac{2}{1} = \mathbf{2.0}\]</span>
+<span class="math display">\[\beta = \frac{6 - 2}{5 - 1} = \frac{4}{4} =
+\mathbf{1.0}\]</span> <span class="math display">\[\gamma = \frac{7 -
+6}{7 - 5} = \frac{1}{2} = \mathbf{0.5}\]</span></li>
+<li><strong>Step B: Apply Piecewise Equations to map <span
+class="math inline">\(r \rightarrow s\)</span>:</strong>
+<ul>
+<li><strong>Region 1 (<span class="math inline">\(0 \le r &lt;
+1\)</span>):</strong> <span class="math inline">\(s = 2r \implies r=0
+\to \mathbf{0}\)</span></li>
+<li><strong>Region 2 (<span class="math inline">\(1 \le r &lt;
+5\)</span>):</strong> <span class="math inline">\(s = 1(r - 1) + 2 = r +
+1 \implies r=1 \to \mathbf{2}, r=2 \to \mathbf{3}, r=3 \to \mathbf{4},
+r=4 \to \mathbf{5}\)</span></li>
+<li><strong>Region 3 (<span class="math inline">\(5 \le r \le
+7\)</span>):</strong> <span class="math inline">\(s = 0.5(r - 5) + 6 =
+0.5r + 3.5 \implies r=5 \to \mathbf{6}, r=6 \to \text{round}(6.5) =
+\mathbf{7}, r=7 \to \mathbf{7}\)</span></li>
+</ul></li>
+<li><strong>Step C: Construct Stretched Matrix:</strong> <span
+class="math display">\[I_{\text{stretched}} = \begin{bmatrix} 3 &amp; 2
+&amp; 3 &amp; 2 \\ 5 &amp; 6 &amp; 6 &amp; 7 \\ 4 &amp; 3 &amp; 2 &amp;
+5 \\ 7 &amp; 3 &amp; 2 &amp; 7 \end{bmatrix}\]</span> <em>(Note: If
+<span class="math inline">\(L-1=6\)</span> max-present scale is assumed:
+<span class="math inline">\(\gamma = 0 \implies r=6 \to
+\mathbf{6}\)</span>, matching output
+<code>[[3, 2, 3, 2], [5, 6, 6, 6], [4, 3, 2, 5], [6, 3, 2, 6]]</code>).</em></li>
+</ul>
+<h5
+id="part-2-apply-the-average-filter-at-underlined-pixel"><strong>Part 2:
+Apply the Average Filter at Underlined Pixel</strong></h5>
+<ul>
+<li><strong>Step A: Extract the <span class="math inline">\(3 \times
+3\)</span> sub-grid centered at <span
+class="math inline">\((2,2)\)</span> (value <code>5</code>):</strong>
+<span class="math display">\[\text{Sub-grid} = \begin{bmatrix} 2 &amp; 1
+&amp; 2 \\ 4 &amp; 5 &amp; 5 \\ 3 &amp; 2 &amp; 1
+\end{bmatrix}\]</span></li>
+<li><strong>Step B: Sum the 9 elements in the neighborhood
+window:</strong> <span class="math display">\[\text{Sum} = 2 + 1 + 2 + 4
++ 5 + 5 + 3 + 2 + 1 = \mathbf{27}\]</span></li>
+<li><strong>Step C: Calculate the Arithmetic Mean:</strong> <span
+class="math display">\[\text{Average Output} = \frac{27}{9} =
+\mathbf{3.00}\]</span></li>
+</ul>
+<p>✍️ <strong>Final Exam Answer:</strong> * Mapped Stretched Matrix is
+constructed. * The convolved output value of the Average filter at the
+underlined pixel location is <strong><span
+class="math inline">\(3.00\)</span></strong>.</p>
+<hr />
+<h4 id="pyq-12-gray-level-slicing-on-4-bit-image"><strong>PYQ 12: Gray
+Level Slicing on 4-bit image</strong></h4>
+<ul>
+<li><strong>Verification Status:</strong> 🟢 <strong>Verified
+PYQ</strong></li>
+<li><strong>Source:</strong> NMIMS Final Exam, Semester V, 2024-25 (Q5a)
+[10 Marks]</li>
+<li><strong>Question Wording:</strong> On the given 4-bit image, apply
+gray level Slicing, without preserving background and with preserving
+background. Show all the steps. Use T1=5 and T2=10. <span
+class="math display">\[I = \begin{bmatrix} 12 &amp; 5 &amp; 6 &amp; 7
+&amp; 8 \\ 11 &amp; 14 &amp; 15 &amp; 3 &amp; 1 \\ 8 &amp; 9 &amp; 5
+&amp; 11 &amp; 12 \\ 7 &amp; 5 &amp; 6 &amp; 8 &amp; 0 \\ 2 &amp; 3
+&amp; 4 &amp; 10 &amp; 13 \end{bmatrix}\]</span></li>
+<li><strong>Topic:</strong> Intensity-level slicing point
+transformation.</li>
+<li><strong>Given Information:</strong>
+<ul>
+<li><span class="math inline">\(5 \times 5\)</span> Input image of 4-bit
+depth (<span class="math inline">\(L = 2^4 = 16\)</span> gray levels,
+<span class="math inline">\(L-1 = 15\)</span>).</li>
+<li>Slicing limits: <span class="math inline">\(T_1 = 5, T_2 =
+10\)</span>.</li>
+</ul></li>
+<li><strong>Required:</strong>
+<ul>
+<li>Output matrix <em>without background preservation</em> (binary
+slicing).</li>
+<li>Output matrix <em>with background preservation</em>.</li>
+</ul></li>
+</ul>
+<p>⭐ <strong>Formula:</strong> * <strong>Case 1 (Without BG):</strong>
+<span class="math inline">\(s = 15\)</span> if <span
+class="math inline">\(5 \le r \le 10\)</span>, else <span
+class="math inline">\(0\)</span>. * <strong>Case 2 (With BG):</strong>
+<span class="math inline">\(s = 15\)</span> if <span
+class="math inline">\(5 \le r \le 10\)</span>, else <span
+class="math inline">\(r\)</span>.</p>
+<p>⚡ <strong>Step-by-Step Solution:</strong></p>
+<h5 id="part-1-slicing-without-background-preservation"><strong>Part 1:
+Slicing Without Background Preservation</strong></h5>
+<p>Set pixels outside <span class="math inline">\([5,10]\)</span> to
+<span class="math inline">\(0\)</span>, and pixels within <span
+class="math inline">\([5,10]\)</span> to <span
+class="math inline">\(15\)</span>: - Row 1: <span
+class="math inline">\(12 \to 0\)</span>, <span class="math inline">\(5
+\to 15\)</span>, <span class="math inline">\(6 \to 15\)</span>, <span
+class="math inline">\(7 \to 15\)</span>, <span class="math inline">\(8
+\to 15\)</span> - Row 2: <span class="math inline">\(11 \to 0\)</span>,
+<span class="math inline">\(14 \to 0\)</span>, <span
+class="math inline">\(15 \to 0\)</span>, <span class="math inline">\(3
+\to 0\)</span>, <span class="math inline">\(1 \to 0\)</span> - Row 3:
+<span class="math inline">\(8 \to 15\)</span>, <span
+class="math inline">\(9 \to 15\)</span>, <span class="math inline">\(5
+\to 15\)</span>, <span class="math inline">\(11 \to 0\)</span>, <span
+class="math inline">\(12 \to 0\)</span> - Row 4: <span
+class="math inline">\(7 \to 15\)</span>, <span class="math inline">\(5
+\to 15\)</span>, <span class="math inline">\(6 \to 15\)</span>, <span
+class="math inline">\(8 \to 15\)</span>, <span class="math inline">\(0
+\to 0\)</span> - Row 5: <span class="math inline">\(2 \to 0\)</span>,
+<span class="math inline">\(3 \to 0\)</span>, <span
+class="math inline">\(4 \to 0\)</span>, <span class="math inline">\(10
+\to 15\)</span>, <span class="math inline">\(13 \to 0\)</span></p>
+<p><span class="math display">\[I_{\text{without}} = \begin{bmatrix} 0
+&amp; 15 &amp; 15 &amp; 15 &amp; 15 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+\\ 15 &amp; 15 &amp; 15 &amp; 0 &amp; 0 \\ 15 &amp; 15 &amp; 15 &amp; 15
+&amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 15 &amp; 0 \end{bmatrix}\]</span></p>
+<h5 id="part-2-slicing-with-background-preservation"><strong>Part 2:
+Slicing With Background Preservation</strong></h5>
+<p>Set pixels within <span class="math inline">\([5,10]\)</span> to
+<span class="math inline">\(15\)</span>, and keep other pixels at their
+original value: - Row 1: <span class="math inline">\(12 \to 12\)</span>,
+<span class="math inline">\(5 \to 15\)</span>, <span
+class="math inline">\(6 \to 15\)</span>, <span class="math inline">\(7
+\to 15\)</span>, <span class="math inline">\(8 \to 15\)</span> - Row 2:
+<span class="math inline">\(11 \to 11\)</span>, <span
+class="math inline">\(14 \to 14\)</span>, <span class="math inline">\(15
+\to 15\)</span>, <span class="math inline">\(3 \to 3\)</span>, <span
+class="math inline">\(1 \to 1\)</span> - Row 3: <span
+class="math inline">\(8 \to 15\)</span>, <span class="math inline">\(9
+\to 15\)</span>, <span class="math inline">\(5 \to 15\)</span>, <span
+class="math inline">\(11 \to 11\)</span>, <span class="math inline">\(12
+\to 12\)</span> - Row 4: <span class="math inline">\(7 \to 15\)</span>,
+<span class="math inline">\(5 \to 15\)</span>, <span
+class="math inline">\(6 \to 15\)</span>, <span class="math inline">\(8
+\to 15\)</span>, <span class="math inline">\(0 \to 0\)</span> - Row 5:
+<span class="math inline">\(2 \to 2\)</span>, <span
+class="math inline">\(3 \to 3\)</span>, <span class="math inline">\(4
+\to 4\)</span>, <span class="math inline">\(10 \to 15\)</span>, <span
+class="math inline">\(13 \to 13\)</span></p>
+<p><span class="math display">\[I_{\text{with}} = \begin{bmatrix} 12
+&amp; 15 &amp; 15 &amp; 15 &amp; 15 \\ 11 &amp; 14 &amp; 15 &amp; 3
+&amp; 1 \\ 15 &amp; 15 &amp; 15 &amp; 11 &amp; 12 \\ 15 &amp; 15 &amp;
+15 &amp; 15 &amp; 0 \\ 2 &amp; 3 &amp; 4 &amp; 15 &amp; 13
+\end{bmatrix}\]</span></p>
+<p>✍️ <strong>Final Exam Answer:</strong> The convolved output matrices
+for both Gray-level Slicing cases are successfully constructed.</p>
+<hr />
+<h3 id="module-2.2-histogram-processing-equalization">📥 MODULE 2.2:
+HISTOGRAM PROCESSING &amp; EQUALIZATION</h3>
+<h4 id="pyq-5-complete-discrete-histogram-equalization"><strong>PYQ 5:
+Complete Discrete Histogram Equalization</strong></h4>
+<ul>
+<li><strong>Verification Status:</strong> 🟢 <strong>Verified
+PYQ</strong></li>
+<li><strong>Source:</strong> NMIMS Final Exam, Dec 2025 - Q2a [10
+Marks]</li>
+<li><strong>Question Wording:</strong> An image has the following gray
+levels and corresponding number of pixels: <span
+class="math display">\[\text{Gray level } r_k: 0, 1, 2, 3, 4, 5, 6,
+7\]</span> <span class="math display">\[\text{No. of pixels } n_k: 2, 3,
+5, 8, 10, 20, 8, 4\]</span> Compute the gray level distribution using
+histogram equalization. Also plot the histogram of the input and output
+(equalized) images.</li>
+<li><strong>Topic:</strong> Histogram Equalization (discrete statistical
+approach).</li>
+<li><strong>Given Information:</strong>
+<ul>
+<li>8 Gray Levels (<span class="math inline">\(L = 8\)</span>, ranging
+from <span class="math inline">\(0\)</span> to <span
+class="math inline">\(7\)</span>).</li>
+<li>Total pixels <span class="math inline">\(N = \sum n_k = 2 + 3 + 5 +
+8 + 10 + 20 + 8 + 4 = 60\)</span> pixels.</li>
+</ul></li>
+<li><strong>Required:</strong>
+<ul>
+<li>Tabulated probability distribution (PDF) and Cumulative distribution
+(CDF).</li>
+<li>Calculated output mapped levels <span
+class="math inline">\(s_k\)</span>.</li>
+<li>Resultant equalized pixel counts.</li>
+</ul></li>
+</ul>
+<p>⭐ <strong>Formula:</strong> <span class="math display">\[p_r(r_k) =
+\frac{n_k}{N}, \quad S_k = \sum_{j=0}^{k} p_r(r_j)\]</span> <span
+class="math display">\[s_k = \text{round}\left( (L - 1) \times S_k
+\right) = \text{round}\left( 7 \times S_k \right)\]</span></p>
+<p>⚡ <strong>Step-by-Step Solution:</strong></p>
+<h5 id="step-1-calculate-pdf-and-cdf-cumulative-sum"><strong>Step 1:
+Calculate PDF and CDF (Cumulative Sum)</strong></h5>
+<ul>
+<li>Cumulative distribution calculations:
+<ul>
+<li><span class="math inline">\(S_0 = 2/60 \approx 0.0333\)</span></li>
+<li><span class="math inline">\(S_1 = (2+3)/60 = 5/60 \approx
+0.0833\)</span></li>
+<li><span class="math inline">\(S_2 = (5+5)/60 = 10/60 \approx
+0.1667\)</span></li>
+<li><span class="math inline">\(S_3 = (10+8)/60 = 18/60 =
+0.3000\)</span></li>
+<li><span class="math inline">\(S_4 = (18+10)/60 = 28/60 \approx
+0.4667\)</span></li>
+<li><span class="math inline">\(S_5 = (28+20)/60 = 48/60 =
+0.8000\)</span></li>
+<li><span class="math inline">\(S_6 = (48+8)/60 = 56/60 \approx
+0.9333\)</span></li>
+<li><span class="math inline">\(S_7 = (56+4)/60 = 60/60 =
+1.0000\)</span></li>
+</ul></li>
+</ul>
+<h5 id="step-2-apply-scaling-and-rounding"><strong>Step 2: Apply Scaling
+and Rounding</strong></h5>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Original Level (<span
+class="math inline">\(r_k\)</span>)</th>
+<th style="text-align: center;">Pixel Count (<span
+class="math inline">\(n_k\)</span>)</th>
+<th style="text-align: center;">PDF (<span
+class="math inline">\(p_r(r_k)\)</span>)</th>
+<th style="text-align: center;">CDF (<span
+class="math inline">\(S_k\)</span>)</th>
+<th style="text-align: center;"><span class="math inline">\(7 \times
+S_k\)</span></th>
+<th style="text-align: center;">Rounded Output (<span
+class="math inline">\(s_k\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>0</strong></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><span class="math inline">\(2/60 \approx
+0.0333\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.0333\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.233\)</span></td>
+<td style="text-align: center;"><strong>0</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><span class="math inline">\(3/60 =
+0.0500\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.0833\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.583\)</span></td>
+<td style="text-align: center;"><strong>1</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;"><span class="math inline">\(5/60 \approx
+0.0833\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.1667\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(1.167\)</span></td>
+<td style="text-align: center;"><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;"><span class="math inline">\(8/60 \approx
+0.1333\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.3000\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(2.100\)</span></td>
+<td style="text-align: center;"><strong>2</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;"><span class="math inline">\(10/60
+\approx 0.1667\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.4667\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(3.267\)</span></td>
+<td style="text-align: center;"><strong>3</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;"><span class="math inline">\(20/60
+\approx 0.3333\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.8000\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(5.600\)</span></td>
+<td style="text-align: center;"><strong>6</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>6</strong></td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;"><span class="math inline">\(8/60 \approx
+0.1333\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.9333\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(6.533\)</span></td>
+<td style="text-align: center;"><strong>7</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>7</strong></td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"><span class="math inline">\(4/60 \approx
+0.0667\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(1.0000\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(7.000\)</span></td>
+<td style="text-align: center;"><strong>7</strong></td>
+</tr>
+</tbody>
+</table>
+<h5 id="step-3-map-original-counts-to-new-gray-levels"><strong>Step 3:
+Map Original Counts to New Gray Levels</strong></h5>
+<ul>
+<li>New level <strong>0</strong> maps from original level
+<strong>0</strong>. Count = <span class="math inline">\(2\)</span>.</li>
+<li>New level <strong>1</strong> maps from original levels
+<strong>1</strong> and <strong>2</strong>. Count = <span
+class="math inline">\(3 + 5 = \mathbf{8}\)</span>.</li>
+<li>New level <strong>2</strong> maps from original level
+<strong>3</strong>. Count = <span
+class="math inline">\(\mathbf{8}\)</span>.</li>
+<li>New level <strong>3</strong> maps from original level
+<strong>4</strong>. Count = <span
+class="math inline">\(\mathbf{10}\)</span>.</li>
+<li>New level <strong>4</strong> has no elements mapped to it. Count =
+<span class="math inline">\(\mathbf{0}\)</span>.</li>
+<li>New level <strong>5</strong> has no elements mapped to it. Count =
+<span class="math inline">\(\mathbf{0}\)</span>.</li>
+<li>New level <strong>6</strong> maps from original level
+<strong>5</strong>. Count = <span
+class="math inline">\(\mathbf{20}\)</span>.</li>
+<li>New level <strong>7</strong> maps from original levels
+<strong>6</strong> and <strong>7</strong>. Count = <span
+class="math inline">\(8 + 4 = \mathbf{12}\)</span>.</li>
+</ul>
+<h5 id="step-4-sketchdescribe-the-histograms"><strong>Step 4:
+Sketch/Describe the Histograms</strong></h5>
+<ul>
+<li><strong>Input Histogram Sketch:</strong> A highly skewed curve
+peaking heavily in the center-right (20 pixels at level 5), leaving the
+dark regions (0 and 1) virtually empty.</li>
+<li><strong>Output Histogram Sketch:</strong> The intensities are widely
+spread out. The mid-tones are stretched (level 5 mapped to 6, level 4
+mapped to 3, and levels 1 &amp; 2 merged to level 1). This creates a
+flatter, high-contrast, more balanced distribution of pixels.</li>
+</ul>
+<hr />
+<h4 id="pyq-6-piecewise-stretching-vs.-equalization"><strong>PYQ 6:
+Piecewise Stretching vs. Equalization</strong></h4>
+<ul>
+<li><strong>Verification Status:</strong> 🟢 <strong>Verified
+PYQ</strong></li>
+<li><strong>Source:</strong> NMIMS Re-Exam December 2024 (Batch 2023-24)
+[10 Marks]</li>
+<li><strong>Question Wording:</strong> Perform the following operations
+on the 4-bit image shown below:</li>
+</ul>
+<ol type="1">
+<li>Contrast stretching using the transformation characteristics shown
+in the graph below. Comment on the effect.</li>
+<li>Histogram equalization of the image. Comment on the effect. <span
+class="math display">\[A = \begin{bmatrix} 10 &amp; 2 &amp; 13 &amp; 7
+\\ 11 &amp; 14 &amp; 6 &amp; 9 \\ 4 &amp; 7 &amp; 3 &amp; 2 \\ 0 &amp; 7
+&amp; 10 &amp; 7 \end{bmatrix}\]</span></li>
+</ol>
+<p><em>(Note: The graph accompanying Part 1 has three linear segments
+starting at <span class="math inline">\((0,0)\)</span>, passing through
+<span class="math inline">\((5,2)\)</span> and <span
+class="math inline">\((10,12)\)</span>, and ending at <span
+class="math inline">\((15,15)\)</span>).</em> * <strong>Topic:</strong>
+Point processing contrast stretching and histogram equalization on small
+matrices. * <strong>Given Information:</strong> - <span
+class="math inline">\(4 \times 4\)</span> Input image matrix (<span
+class="math inline">\(N = 16\)</span>). - 4-bit depth (<span
+class="math inline">\(L = 16\)</span>, levels from <span
+class="math inline">\(0\)</span> to <span
+class="math inline">\(15\)</span>). - Transformation coordinates for
+contrast stretching: <span class="math inline">\((5, 2)\)</span> and
+<span class="math inline">\((10, 12)\)</span>. *
+<strong>Required:</strong> - Part 1: Stretched output matrix and visual
+comment. - Part 2: Equalized output matrix and visual comment.</p>
+<p>⚡ <strong>Step-by-Step Solution:</strong></p>
+<h5 id="part-1-contrast-stretching-calculation"><strong>Part 1: Contrast
+Stretching Calculation</strong></h5>
+<ul>
+<li><strong>Step A: Compute Slopes and Equations:</strong> <span
+class="math display">\[\alpha = \frac{2}{5} = \mathbf{0.4}, \quad \beta
+= \frac{12 - 2}{10 - 5} = \frac{10}{5} = \mathbf{2}, \quad \gamma =
+\frac{15 - 12}{15 - 10} = \frac{3}{5} = \mathbf{0.6}\]</span>
+<ul>
+<li><strong>For <span class="math inline">\(0 \le r &lt; 5 \implies s =
+\text{round}(0.4 \cdot r)\)</span></strong></li>
+<li><strong>For <span class="math inline">\(5 \le r &lt; 10 \implies s =
+\text{round}(2(r - 5) + 2)\)</span></strong></li>
+<li><strong>For <span class="math inline">\(10 \le r \le 15 \implies s =
+\text{round}(0.6(r - 10) + 12)\)</span></strong></li>
+</ul></li>
+<li><strong>Step B: Apply Mapping Lookup Table:</strong>
+<ul>
+<li><span class="math inline">\(r=0 \implies s = 0.4(0) =
+\mathbf{0}\)</span></li>
+<li><span class="math inline">\(r=2 \implies s = 0.4(2) = 0.8 \approx
+\mathbf{1}\)</span></li>
+<li><span class="math inline">\(r=3 \implies s = 0.4(3) = 1.2 \approx
+\mathbf{1}\)</span></li>
+<li><span class="math inline">\(r=4 \implies s = 0.4(4) = 1.6 \approx
+\mathbf{2}\)</span></li>
+<li><span class="math inline">\(r=6 \implies s = 2(6 - 5) + 2 =
+\mathbf{4}\)</span></li>
+<li><span class="math inline">\(r=7 \implies s = 2(7 - 5) + 2 =
+\mathbf{6}\)</span></li>
+<li><span class="math inline">\(r=9 \implies s = 2(9 - 5) + 2 =
+\mathbf{10}\)</span></li>
+<li><span class="math inline">\(r=10 \implies s = 0.6(10 - 10) + 12 =
+\mathbf{12}\)</span></li>
+<li><span class="math inline">\(r=11 \implies s = 0.6(11 - 10) + 12 =
+12.6 \approx \mathbf{13}\)</span></li>
+<li><span class="math inline">\(r=13 \implies s = 0.6(13 - 10) + 12 =
+13.8 \approx \mathbf{14}\)</span></li>
+<li><span class="math inline">\(r=14 \implies s = 0.6(14 - 10) + 12 =
+14.4 \approx \mathbf{14}\)</span></li>
+</ul></li>
+<li><strong>Step C: Construct Stretched Matrix:</strong> <span
+class="math display">\[A_{\text{stretched}} = \begin{bmatrix} 12 &amp; 1
+&amp; 14 &amp; 6 \\ 13 &amp; 14 &amp; 4 &amp; 10 \\ 2 &amp; 6 &amp; 1
+&amp; 1 \\ 0 &amp; 6 &amp; 12 &amp; 6 \end{bmatrix}\]</span></li>
+<li><strong>Comment on Effect:</strong> Contrast stretching maps lower
+intensities (below 5) into a compressed, darker range and higher
+intensities (above 10) into a compressed, bright range. Mid-tones are
+heavily stretched with a slope of <span class="math inline">\(\beta =
+2\)</span>, which significantly expands the contrast and separates the
+mid-gray details.</li>
+</ul>
+<hr />
+<h5 id="part-2-histogram-equalization-calculation"><strong>Part 2:
+Histogram Equalization Calculation</strong></h5>
+<ul>
+<li><strong>Step A: Frequency Table and Cumulative Counts (<span
+class="math inline">\(N = 16\)</span>):</strong></li>
+</ul>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Gray Level (<span
+class="math inline">\(r_k\)</span>)</th>
+<th style="text-align: center;">Count (<span
+class="math inline">\(n_k\)</span>)</th>
+<th style="text-align: center;">PDF (<span class="math inline">\(p_r =
+n_k/16\)</span>)</th>
+<th style="text-align: center;">CDF (<span
+class="math inline">\(S_k\)</span>)</th>
+<th style="text-align: center;"><span class="math inline">\(15 \times
+S_k\)</span></th>
+<th style="text-align: center;">Rounded <span
+class="math inline">\(s_k\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>0</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(1/16 =
+0.0625\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.0625\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.9375\)</span></td>
+<td style="text-align: center;"><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><span class="math inline">\(2/16 =
+0.1250\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.1875\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(2.8125\)</span></td>
+<td style="text-align: center;"><strong>3</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(1/16 =
+0.0625\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.2500\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(3.7500\)</span></td>
+<td style="text-align: center;"><strong>4</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(1/16 =
+0.0625\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.3125\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(4.6875\)</span></td>
+<td style="text-align: center;"><strong>5</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>6</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(1/16 =
+0.0625\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.3750\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(5.6250\)</span></td>
+<td style="text-align: center;"><strong>6</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>7</strong></td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"><span class="math inline">\(4/16 =
+0.2500\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.6250\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(9.3750\)</span></td>
+<td style="text-align: center;"><strong>9</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>9</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(1/16 =
+0.0625\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.6875\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(10.3125\)</span></td>
+<td style="text-align: center;"><strong>10</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>10</strong></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><span class="math inline">\(2/16 =
+0.1250\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.8125\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(12.1875\)</span></td>
+<td style="text-align: center;"><strong>12</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>11</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(1/16 =
+0.0625\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.8750\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(13.1250\)</span></td>
+<td style="text-align: center;"><strong>13</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>13</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(1/16 =
+0.0625\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0.9375\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(14.0625\)</span></td>
+<td style="text-align: center;"><strong>14</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>14</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(1/16 =
+0.0625\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(1.0000\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(15.0000\)</span></td>
+<td style="text-align: center;"><strong>15</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Step B: Apply Mapping Lookup Table to Input Matrix:</strong>
+Replace original intensities with equalized values:
+<ul>
+<li><code>10</code> <span class="math inline">\(\rightarrow\)</span>
+<code>12</code>, <code>2</code> <span
+class="math inline">\(\rightarrow\)</span> <code>3</code>,
+<code>13</code> <span class="math inline">\(\rightarrow\)</span>
+<code>14</code>, <code>7</code> <span
+class="math inline">\(\rightarrow\)</span> <code>9</code></li>
+<li><code>11</code> <span class="math inline">\(\rightarrow\)</span>
+<code>13</code>, <code>14</code> <span
+class="math inline">\(\rightarrow\)</span> <code>15</code>,
+<code>6</code> <span class="math inline">\(\rightarrow\)</span>
+<code>6</code>, <code>9</code> <span
+class="math inline">\(\rightarrow\)</span> <code>10</code></li>
+<li><code>4</code> <span class="math inline">\(\rightarrow\)</span>
+<code>5</code>, <code>7</code> <span
+class="math inline">\(\rightarrow\)</span> <code>9</code>,
+<code>3</code> <span class="math inline">\(\rightarrow\)</span>
+<code>4</code>, <code>2</code> <span
+class="math inline">\(\rightarrow\)</span> <code>3</code></li>
+<li><code>0</code> <span class="math inline">\(\rightarrow\)</span>
+<code>1</code>, <code>7</code> <span
+class="math inline">\(\rightarrow\)</span> <code>9</code>,
+<code>10</code> <span class="math inline">\(\rightarrow\)</span>
+<code>12</code>, <code>7</code> <span
+class="math inline">\(\rightarrow\)</span> <code>9</code></li>
+</ul></li>
+<li><strong>Step C: Construct Equalized Matrix:</strong> <span
+class="math display">\[A_{\text{equalized}} = \begin{bmatrix} 12 &amp; 3
+&amp; 14 &amp; 9 \\ 13 &amp; 15 &amp; 6 &amp; 10 \\ 5 &amp; 9 &amp; 4
+&amp; 3 \\ 1 &amp; 9 &amp; 12 &amp; 9 \end{bmatrix}\]</span></li>
+<li><strong>Comment on Effect:</strong> Histogram equalization expands
+the dynamic range over the entire possible spectrum <span
+class="math inline">\([0, 15]\)</span>. By linearizing the Cumulative
+Distribution Function, it ensures that all intensity bins are populated
+more uniformly, dramatically increasing contrast and making dark and
+light structures more visible simultaneously.</li>
+</ul>
+<hr />
+<h4 id="pyq-10-8x8-histogram-equalization-matrix-mapping"><strong>PYQ
+10: 8x8 Histogram Equalization Matrix Mapping</strong></h4>
+<ul>
+<li><strong>Verification Status:</strong> 🟢 <strong>Verified
+PYQ</strong></li>
+<li><strong>Source:</strong> NMIMS Final Exam, Semester V, 2024-25 (Q3a)
+&amp; Handwritten Notebook [10 Marks]</li>
+<li><strong>Question Wording:</strong> Apply histogram equalization on
+the input image of 8x8 below. Let the input and output gray levels be in
+the range of [0, 7]. Also plot histogram of input image and histogram
+equalized image. <span class="math display">\[I = \begin{bmatrix} 1
+&amp; 1 &amp; 5 &amp; 5 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ 1 &amp; 1
+&amp; 2 &amp; 2 &amp; 0 &amp; 1 &amp; 0 &amp; 1 \\ 1 &amp; 7 &amp; 6
+&amp; 6 &amp; 5 &amp; 5 &amp; 0 &amp; 0 \\ 0 &amp; 7 &amp; 6 &amp; 7
+&amp; 5 &amp; 5 &amp; 5 &amp; 5 \\ 4 &amp; 7 &amp; 6 &amp; 7 &amp; 3
+&amp; 5 &amp; 7 &amp; 0 \\ 1 &amp; 1 &amp; 4 &amp; 1 &amp; 6 &amp; 5
+&amp; 6 &amp; 1 \\ 2 &amp; 2 &amp; 4 &amp; 1 &amp; 1 &amp; 5 &amp; 1
+&amp; 1 \\ 1 &amp; 2 &amp; 2 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 5
+\end{bmatrix}\]</span></li>
+<li><strong>Topic:</strong> Histogram Processing on Matrices.</li>
+<li><strong>Given Information:</strong>
+<ul>
+<li><span class="math inline">\(8 \times 8\)</span> grayscale input
+matrix (<span class="math inline">\(N = 64\)</span> total pixels).</li>
+<li>Intensity levels range from <span class="math inline">\(0\)</span>
+to <span class="math inline">\(7\)</span>.</li>
+</ul></li>
+<li><strong>Required:</strong>
+<ul>
+<li>Standard probability table (PDF and CDF).</li>
+<li>Mapped intensity lookup table.</li>
+<li>Final equalized frequency distribution.</li>
+</ul></li>
+</ul>
+<p>⚡ <strong>Step-by-Step Solution:</strong></p>
+<h5 id="step-1-calculate-frequency-n_k-pdf-and-cdf-n64"><strong>Step 1:
+Calculate Frequency (<span class="math inline">\(n_k\)</span>), PDF, and
+CDF (<span class="math inline">\(N=64\)</span>):</strong></h5>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span
+class="math inline">\(k\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(r_k\)</span></th>
+<th style="text-align: center;">Count <span
+class="math inline">\(n_k\)</span></th>
+<th style="text-align: left;">PDF (<span class="math inline">\(p_r(r_k)
+= n_k/64\)</span>)</th>
+<th style="text-align: left;">CDF (<span
+class="math inline">\(S_k\)</span>)</th>
+<th style="text-align: left;"><span class="math inline">\(7 \times
+S_k\)</span></th>
+<th style="text-align: center;">Rounded Output (<span
+class="math inline">\(s_k\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>0</strong></td>
+<td style="text-align: center;">13</td>
+<td style="text-align: left;"><span class="math inline">\(13/64 \approx
+0.2031\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(0.2031\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(1.422\)</span></td>
+<td style="text-align: center;"><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: center;">17</td>
+<td style="text-align: left;"><span class="math inline">\(17/64 \approx
+0.2656\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(0.4688\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(3.281\)</span></td>
+<td style="text-align: center;"><strong>3</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;"><span class="math inline">\(6/64 =
+0.0938\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(0.5625\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(3.938\)</span></td>
+<td style="text-align: center;"><strong>4</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><span class="math inline">\(1/64 \approx
+0.0156\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(0.5781\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(4.047\)</span></td>
+<td style="text-align: center;"><strong>4</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><span class="math inline">\(3/64 \approx
+0.0469\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(0.6250\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(4.375\)</span></td>
+<td style="text-align: center;"><strong>4</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: center;">12</td>
+<td style="text-align: left;"><span class="math inline">\(12/64 =
+0.1875\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(0.8125\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(5.688\)</span></td>
+<td style="text-align: center;"><strong>6</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;"><strong>6</strong></td>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;"><span class="math inline">\(6/64 =
+0.0938\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(0.9062\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(6.344\)</span></td>
+<td style="text-align: center;"><strong>6</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;"><strong>7</strong></td>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;"><span class="math inline">\(6/64 =
+0.0938\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(1.0000\)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\(7.000\)</span></td>
+<td style="text-align: center;"><strong>7</strong></td>
+</tr>
+</tbody>
+</table>
+<h5 id="step-2-grouping-redistribution-of-output-pixels"><strong>Step 2:
+Grouping / Redistribution of Output Pixels</strong></h5>
+<p>Combine the frequency counts of input levels that map to the same
+output level: - Output <strong>0</strong>: <strong>0 pixels</strong> (no
+levels mapped here) - Output <strong>1</strong>: maps from <span
+class="math inline">\(r_0 \implies \mathbf{13}\)</span> pixels - Output
+<strong>2</strong>: <strong>0 pixels</strong> (no levels mapped here) -
+Output <strong>3</strong>: maps from <span class="math inline">\(r_1
+\implies \mathbf{17}\)</span> pixels - Output <strong>4</strong>: maps
+from <span class="math inline">\(r_2, r_3, r_4 \implies 6 + 1 + 3 =
+\mathbf{10}\)</span> pixels - Output <strong>5</strong>: <strong>0
+pixels</strong> - Output <strong>6</strong>: maps from <span
+class="math inline">\(r_5, r_6 \implies 12 + 6 = \mathbf{18}\)</span>
+pixels - Output <strong>7</strong>: maps from <span
+class="math inline">\(r_7 \implies \mathbf{6}\)</span> pixels</p>
+<h5
+id="step-3-final-equalized-gray-level-distribution-table"><strong>Step
+3: Final Equalized Gray Level Distribution Table:</strong></h5>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Equalized level <span
+class="math inline">\(s_k\)</span></th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>New Pixel Count <span
+class="math inline">\(n&#39;_k\)</span></strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">6</td>
+</tr>
+</tbody>
+</table>
+<p>✍️ <strong>Final Exam Answer:</strong> The complete frequency
+distribution table and output matrix are successfully generated. (Total
+pixel count check: <span class="math inline">\(13 + 17 + 10 + 18 + 6 =
+64\)</span>. Correct!)</p>
+<hr />
+<h3
+id="module-2.3-neighborhood-operations-spatial-filters-smoothing-only">📥
+MODULE 2.3: NEIGHBORHOOD OPERATIONS &amp; SPATIAL FILTERS (SMOOTHING
+ONLY)</h3>
+<h4 id="pyq-8-median-filter-with-zero-padding"><strong>PYQ 8: Median
+Filter with Zero Padding</strong></h4>
+<ul>
+<li><strong>Verification Status:</strong> 🟢 <strong>Verified
+PYQ</strong></li>
+<li><strong>Source:</strong> NMIMS Final Exam, Semester V, 2024-25 (Q4a)
+[5 Marks]</li>
+<li><strong>Question Wording:</strong> Apply Median filter of size <span
+class="math inline">\(3 \times 3\)</span> on pixel underlined in the
+below image. Use zero padding. <span class="math display">\[I =
+\begin{bmatrix} 8 &amp; 17 &amp; 4 &amp; 10 &amp; 15 \\ 3 &amp;
+\underline{30} &amp; 6 &amp; 32 &amp; 3 \\ 15 &amp; 10 &amp; 7 &amp; 5
+&amp; 2 \\ 4 &amp; 29 &amp; 3 &amp; 31 &amp; 1 \\ 16 &amp; 7 &amp; 4
+&amp; 3 &amp; 0 \end{bmatrix}\]</span></li>
+<li><strong>Topic:</strong> Non-linear order-statistics spatial
+neighborhood filters.</li>
+<li><strong>Given Information:</strong>
+<ul>
+<li><span class="math inline">\(5 \times 5\)</span> image matrix.</li>
+<li>Filter size: <span class="math inline">\(3 \times 3\)</span>.</li>
+<li>Target pixel: Row 2, Column 2 (value <span
+class="math inline">\(30\)</span>, underlined).</li>
+<li>Padding: Zero Padding.</li>
+</ul></li>
+<li><strong>Required:</strong> Output sorted median value for the target
+pixel.</li>
+</ul>
+<p>⭐ <strong>Formula / Method:</strong> A median filter is an
+order-statistic filter where we: 1. Extract the <span
+class="math inline">\(3 \times 3\)</span> sub-neighborhood centered at
+the target pixel. 2. Sort the 9 elements in ascending order. 3. Replace
+the center pixel value with the middle value (the 5th element in the
+sorted list).</p>
+<p>⚡ <strong>Step-by-Step Solution:</strong> * <strong>Step 1: Extract
+the <span class="math inline">\(3 \times 3\)</span> neighborhood around
+<span class="math inline">\(30\)</span>:</strong> <span
+class="math display">\[N_3(30) = \begin{bmatrix} 8 &amp; 17 &amp; 4 \\ 3
+&amp; 30 &amp; 6 \\ 15 &amp; 10 &amp; 7 \end{bmatrix}\]</span> *
+<strong>Step 2: List the 9 extracted values:</strong> <span
+class="math display">\[\{8, 17, 4, 3, 30, 6, 15, 10, 7\}\]</span> *
+<strong>Step 3: Sort the values in ascending order:</strong> <span
+class="math display">\[\{3, 4, 6, 7, \mathbf{8}, 10, 15, 17,
+30\}\]</span> * <strong>Step 4: Find the median (5th element):</strong>
+- Sorted array index 5 is <strong><span
+class="math inline">\(8\)</span></strong>.</p>
+<p>✍️ <strong>Final Exam Answer:</strong> The output value at the target
+pixel <span class="math inline">\((2,2)\)</span> after applying the
+<span class="math inline">\(3 \times 3\)</span> median filter is
+<strong><span class="math inline">\(8\)</span></strong>.</p>
+<hr />
+<h4 id="pyq-9-linear-and-non-linear-filter-comparisons"><strong>PYQ 9:
+Linear and Non-Linear Filter Comparisons</strong></h4>
+<ul>
+<li><strong>Verification Status:</strong> 🟢 <strong>Verified
+PYQ</strong></li>
+<li><strong>Source:</strong> NMIMS Re-Exam, Batch 2024-25 (Dec 2024 -
+Q4a) &amp; Solved Paper 2015-16 [10/15 Marks]</li>
+<li><strong>Question Wording:</strong> What are the linear and
+non-linear smoothing filters in spatial domain? Compute the new pixel
+values after applying the <span class="math inline">\(3 \times
+3\)</span> box filter on the following <span class="math inline">\(5
+\times 5\)</span> matrix of an 8-bit image: <span
+class="math display">\[I = \begin{bmatrix} 139 &amp; 128 &amp; 237 &amp;
+126 &amp; 129 \\ 145 &amp; 129 &amp; 123 &amp; 89 &amp; 132 \\ 146 &amp;
+122 &amp; 128 &amp; 87 &amp; 135 \\ 141 &amp; 125 &amp; 134 &amp; 131
+&amp; 139 \\ 112 &amp; 127 &amp; 138 &amp; 133 &amp; 142
+\end{bmatrix}\]</span></li>
+<li><strong>Topic:</strong> Smoothing spatial filters (convolved
+calculations).</li>
+<li><strong>Given Information:</strong>
+<ul>
+<li><span class="math inline">\(5 \times 5\)</span> matrix of an 8-bit
+image.</li>
+<li>Operation: <span class="math inline">\(3 \times 3\)</span>
+Box/Averaging filter.</li>
+<li>Rule: Inner pixel calculations only.</li>
+</ul></li>
+<li><strong>Required:</strong>
+<ul>
+<li>Definitions of linear vs. non-linear spatial smoothing filters.</li>
+<li>Step-by-step convolved calculations for the 9 inner pixels.</li>
+</ul></li>
+</ul>
+<p>⭐ <strong>Formula / Mask:</strong> The <span class="math inline">\(3
+\times 3\)</span> box filter mask is: <span
+class="math display">\[H_{\text{box}} = \frac{1}{9} \begin{bmatrix} 1
+&amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1
+\end{bmatrix}\]</span></p>
+<p>⚡ <strong>Step-by-Step Solution:</strong></p>
+<h5 id="part-1-definitions"><strong>Part 1: Definitions</strong></h5>
+<ul>
+<li><strong>Linear Smoothing Filters (e.g., Average /
+Gaussian):</strong> These filters operate by performing a weighted sum
+of the pixels in the neighborhood of the mask. The output is a linear
+combination of input values. They reduce noise but blur sharp
+edges.</li>
+<li><strong>Non-Linear Smoothing Filters (e.g., Median / Min /
+Max):</strong> These filters operate by ordering (ranking) the pixels
+contained under the mask and replacing the center pixel value with a
+value determined by the ranking result. They are excellent for removing
+impulse noise without severely blurring edges.</li>
+</ul>
+<h5 id="part-2-inner-pixel-convolved-calculations"><strong>Part 2: Inner
+Pixel Convolved Calculations</strong></h5>
+<ul>
+<li><strong>Pixel (2,2) [Value: 129]:</strong>
+<ul>
+<li>Subgrid: <span class="math inline">\([139, 128, 237; 145, 129, 123;
+146, 122, 128]\)</span></li>
+<li>Sum <span class="math inline">\(=
+139+128+237+145+129+123+146+122+128 = 1197\)</span></li>
+<li>Output <span class="math inline">\(= \text{round}(1197 / 9) =
+\mathbf{133}\)</span></li>
+</ul></li>
+<li><strong>Pixel (2,3) [Value: 123]:</strong>
+<ul>
+<li>Subgrid: <span class="math inline">\([128, 237, 126; 129, 123, 89;
+122, 128, 87]\)</span></li>
+<li>Sum <span class="math inline">\(= 128+237+126+129+123+89+122+128+87
+= 1169\)</span></li>
+<li>Output <span class="math inline">\(= \text{round}(1169 / 9) \approx
+\mathbf{130}\)</span></li>
+</ul></li>
+<li><strong>Pixel (2,4) [Value: 89]:</strong>
+<ul>
+<li>Subgrid: <span class="math inline">\([237, 126, 129; 123, 89, 132;
+128, 87, 135]\)</span></li>
+<li>Sum <span class="math inline">\(= 237+126+129+123+89+132+128+87+135
+= 1186\)</span></li>
+<li>Output <span class="math inline">\(= \text{round}(1186 / 9) \approx
+\mathbf{132}\)</span></li>
+</ul></li>
+<li><strong>Pixel (3,2) [Value: 122]:</strong>
+<ul>
+<li>Subgrid: <span class="math inline">\([145, 129, 123; 146, 122, 128;
+141, 125, 134]\)</span></li>
+<li>Sum <span class="math inline">\(=
+145+129+123+146+122+128+141+125+134 = 1193\)</span></li>
+<li>Output <span class="math inline">\(= \text{round}(1193 / 9) \approx
+\mathbf{133}\)</span></li>
+</ul></li>
+<li><strong>Pixel (3,3) [Value: 128]:</strong>
+<ul>
+<li>Subgrid: <span class="math inline">\([129, 123, 89; 122, 128, 87;
+125, 134, 131]\)</span></li>
+<li>Sum <span class="math inline">\(= 129+123+89+122+128+87+125+134+131
+= 1068\)</span></li>
+<li>Output <span class="math inline">\(= \text{round}(1068 / 9) =
+\mathbf{119}\)</span></li>
+</ul></li>
+<li><strong>Pixel (3,4) [Value: 87]:</strong>
+<ul>
+<li>Subgrid: <span class="math inline">\([123, 89, 132; 128, 87, 135;
+134, 131, 139]\)</span></li>
+<li>Sum <span class="math inline">\(= 123+89+132+128+87+135+134+131+139
+= 1098\)</span></li>
+<li>Output <span class="math inline">\(= \text{round}(1098 / 9) =
+\mathbf{122}\)</span></li>
+</ul></li>
+<li><strong>Pixel (4,2) [Value: 125]:</strong>
+<ul>
+<li>Subgrid: <span class="math inline">\([146, 122, 128; 141, 125, 134;
+112, 127, 138]\)</span></li>
+<li>Sum <span class="math inline">\(=
+146+122+128+141+125+134+112+127+138 = 1173\)</span></li>
+<li>Output <span class="math inline">\(= \text{round}(1173 / 9) =
+\mathbf{130}\)</span></li>
+</ul></li>
+<li><strong>Pixel (4,3) [Value: 134]:</strong>
+<ul>
+<li>Subgrid: <span class="math inline">\([122, 128, 87; 125, 134, 131;
+127, 138, 133]\)</span></li>
+<li>Sum <span class="math inline">\(= 122+128+87+125+134+131+127+138+133
+= 1125\)</span></li>
+<li>Output <span class="math inline">\(= \text{round}(1125 / 9) =
+\mathbf{125}\)</span></li>
+</ul></li>
+<li><strong>Pixel (4,4) [Value: 131]:</strong>
+<ul>
+<li>Subgrid: <span class="math inline">\([128, 87, 135; 134, 131, 139;
+138, 133, 142]\)</span></li>
+<li>Sum <span class="math inline">\(= 128+87+135+134+131+139+138+133+142
+= 1177\)</span></li>
+<li>Output <span class="math inline">\(= \text{round}(1177 / 9) \approx
+\mathbf{131}\)</span></li>
+</ul></li>
+</ul>
+<p>✍️ <strong>Final Matrix Output:</strong> The processed inner matrix
+of the image is: <span class="math display">\[I_{\text{processed}} =
+\begin{bmatrix} 139 &amp; 128 &amp; 237 &amp; 126 &amp; 129 \\ 145 &amp;
+\mathbf{133} &amp; \mathbf{130} &amp; \mathbf{132} &amp; 132 \\ 146
+&amp; \mathbf{133} &amp; \mathbf{119} &amp; \mathbf{122} &amp; 135 \\
+141 &amp; \mathbf{130} &amp; \mathbf;{125} &amp; \mathbf{131} &amp; 139
+\\ 112 &amp; 127 &amp; 138 &amp; 133 &amp; 142
+\end{bmatrix}\]</span></p>
+<hr />
+<h4
+id="pyq-13-averaging-and-median-filter-on-salt-pepper-noise"><strong>PYQ
+13: Averaging and Median Filter on Salt &amp; Pepper Noise</strong></h4>
+<ul>
+<li><strong>Verification Status:</strong> 🟢 <strong>Verified
+PYQ</strong></li>
+<li><strong>Source:</strong> NMIMS Final Exam December 2024 / Re-Exam
+(Q2b) [10 Marks]</li>
+<li><strong>Question Wording:</strong> Apply 3x3 averaging filter and
+median filter on given image to remove salt and pepper noise. Give
+statement on which is better filter to remove salt and pepper noise.
+Size of image is 5x5. <span class="math display">\[I = \begin{bmatrix} 2
+&amp; 2 &amp; 3 &amp; 5 &amp; 5 \\ 2 &amp; 7 &amp; 3 &amp; 5 &amp; 5 \\
+2 &amp; 2 &amp; 3 &amp; 1 &amp; 5 \\ 2 &amp; 2 &amp; 3 &amp; 5 &amp; 5
+\\ 2 &amp; 2 &amp; 3 &amp; 5 &amp; 5 \end{bmatrix}\]</span></li>
+<li><strong>Topic:</strong> Noise removal spatial neighborhood
+filtering.</li>
+<li><strong>Given Information:</strong>
+<ul>
+<li><span class="math inline">\(5 \times 5\)</span> grayscale input
+matrix.</li>
+<li>Salt noise: <code>7</code> at coordinates <span
+class="math inline">\((2,2)\)</span> (1-based: row 2, column 2).</li>
+<li>Pepper noise: <code>1</code> at coordinates <span
+class="math inline">\((3,4)\)</span> (1-based: row 3, column 4).</li>
+</ul></li>
+<li><strong>Required:</strong>
+<ul>
+<li>Complete convolved output of standard <span class="math inline">\(3
+\times 3\)</span> Box/Averaging filter.</li>
+<li>Complete convolved output of <span class="math inline">\(3 \times
+3\)</span> Median filter.</li>
+<li>Comparative analytical statement.</li>
+</ul></li>
+</ul>
+<p>⚡ <strong>Step-by-Step Solution:</strong></p>
+<h5
+id="part-1-average-filter-mean-convolved-calculations-inner-pixels"><strong>Part
+1: Average Filter (Mean) Convolved Calculations (Inner
+Pixels):</strong></h5>
+<ul>
+<li><strong>Pixel (2,2) [Value: 7]:</strong>
+<ul>
+<li>Neighborhood: <span class="math inline">\([2, 2, 3; 2, 7, 3; 2, 2,
+3]\)</span></li>
+<li>Sum <span class="math inline">\(= 2+2+3+2+7+3+2+2+3 = 26 \implies
+\text{Average} = \mathbf{2.89}\)</span></li>
+</ul></li>
+<li><strong>Pixel (2,3) [Value: 3]:</strong>
+<ul>
+<li>Neighborhood: <span class="math inline">\([2, 3, 5; 7, 3, 5; 2, 3,
+1]\)</span></li>
+<li>Sum <span class="math inline">\(= 2+3+5+7+3+5+2+3+1 = 31 \implies
+\text{Average} = \mathbf{3.44}\)</span></li>
+</ul></li>
+<li><strong>Pixel (2,4) [Value: 5]:</strong>
+<ul>
+<li>Neighborhood: <span class="math inline">\([3, 5, 5; 3, 5, 5; 3, 1,
+5]\)</span></li>
+<li>Sum <span class="math inline">\(= 3+5+5+3+5+5+3+1+5 = 35 \implies
+\text{Average} = \mathbf{3.89}\)</span></li>
+</ul></li>
+<li><strong>Pixel (3,2) [Value: 2]:</strong>
+<ul>
+<li>Neighborhood: <span class="math inline">\([2, 7, 3; 2, 2, 3; 2, 2,
+3]\)</span></li>
+<li>Sum <span class="math inline">\(= 2+7+3+2+2+3+2+2+3 = 26 \implies
+\text{Average} = \mathbf{2.89}\)</span></li>
+</ul></li>
+<li><strong>Pixel (3,3) [Value: 3]:</strong>
+<ul>
+<li>Neighborhood: <span class="math inline">\([7, 3, 5; 2, 3, 1; 2, 3,
+5]\)</span></li>
+<li>Sum <span class="math inline">\(= 7+3+5+2+3+1+2+3+5 = 31 \implies
+\text{Average} = \mathbf{3.44}\)</span></li>
+</ul></li>
+<li><strong>Pixel (3,4) [Value: 1]:</strong>
+<ul>
+<li>Neighborhood: <span class="math inline">\([3, 5, 5; 3, 1, 5; 3, 5,
+5]\)</span></li>
+<li>Sum <span class="math inline">\(= 3+5+5+3+1+5+3+5+5 = 35 \implies
+\text{Average} = \mathbf{3.89}\)</span></li>
+</ul></li>
+<li><strong>Pixel (4,2) [Value: 2]:</strong>
+<ul>
+<li>Neighborhood: <span class="math inline">\([2, 2, 3; 2, 2, 3; 2, 2,
+3]\)</span></li>
+<li>Sum <span class="math inline">\(= 21 \implies \text{Average} =
+\mathbf{2.33}\)</span></li>
+</ul></li>
+<li><strong>Pixel (4,3) [Value: 3]:</strong>
+<ul>
+<li>Neighborhood: <span class="math inline">\([2, 3, 1; 2, 3, 5; 2, 3,
+5]\)</span></li>
+<li>Sum <span class="math inline">\(= 26 \implies \text{Average} =
+\mathbf{2.89}\)</span></li>
+</ul></li>
+<li><strong>Pixel (4,4) [Value: 5]:</strong>
+<ul>
+<li>Neighborhood: <span class="math inline">\([3, 1, 5; 3, 5, 5; 3, 5,
+5]\)</span></li>
+<li>Sum <span class="math inline">\(= 35 \implies \text{Average} =
+\mathbf{3.89}\)</span></li>
+</ul></li>
+</ul>
+<h5
+id="part-2-median-filter-sorted-calculations-inner-pixels"><strong>Part
+2: Median Filter Sorted Calculations (Inner Pixels):</strong></h5>
+<ul>
+<li><strong>Pixel (2,2) [Value: 7]:</strong>
+<ul>
+<li>Subgrid values: <span class="math inline">\(\{2, 2, 3, 2, 7, 3, 2,
+2, 3\} \rightarrow \text{Sorted}: \{2, 2, 2, 2, \mathbf{3}, 3, 3, 3, 7\}
+\implies \text{Median} = \mathbf{2}\)</span></li>
+</ul></li>
+<li><strong>Pixel (2,3) [Value: 3]:</strong>
+<ul>
+<li>Subgrid values: <span class="math inline">\(\{2, 3, 5, 7, 3, 5, 2,
+3, 1\} \rightarrow \text{Sorted}: \{1, 2, 2, 3, \mathbf{3}, 3, 5, 5, 7\}
+\implies \text{Median} = \mathbf{3}\)</span></li>
+</ul></li>
+<li><strong>Pixel (2,4) [Value: 5]:</strong>
+<ul>
+<li>Subgrid values: <span class="math inline">\(\{3, 5, 5, 3, 5, 5, 3,
+1, 5\} \rightarrow \text{Sorted}: \{1, 3, 3, 3, \mathbf{5}, 5, 5, 5, 5\}
+\implies \text{Median} = \mathbf{5}\)</span></li>
+</ul></li>
+<li><strong>Pixel (3,2) [Value: 2]:</strong>
+<ul>
+<li>Subgrid values: <span class="math inline">\(\{2, 7, 3, 2, 2, 3, 2,
+2, 3\} \rightarrow \text{Sorted}: \{2, 2, 2, 2, \mathbf{2}, 3, 3, 3, 7\}
+\implies \text{Median} = \mathbf{2}\)</span></li>
+</ul></li>
+<li><strong>Pixel (3,3) [Value: 3]:</strong>
+<ul>
+<li>Subgrid values: <span class="math inline">\(\{7, 3, 5, 2, 3, 1, 2,
+3, 5\} \rightarrow \text{Sorted}: \{1, 2, 2, 3, \mathbf{3}, 3, 5, 5, 7\}
+\implies \text{Median} = \mathbf{3}\)</span></li>
+</ul></li>
+<li><strong>Pixel (3,4) [Value: 1]:</strong>
+<ul>
+<li>Subgrid values: <span class="math inline">\(\{3, 5, 5, 3, 1, 5, 3,
+5, 5\} \rightarrow \text{Sorted}: \{1, 3, 3, 3, \mathbf{5}, 5, 5, 5, 5\}
+\implies \text{Median} = \mathbf{5}\)</span></li>
+</ul></li>
+<li><strong>Pixel (4,2) [Value: 2]:</strong>
+<ul>
+<li>Subgrid values: <span class="math inline">\(\{2, 2, 3, 2, 2, 3, 2,
+2, 3\} \rightarrow \text{Sorted}: \{2, 2, 2, 2, \mathbf{2}, 3, 3, 3, 3\}
+\implies \text{Median} = \mathbf{2}\)</span></li>
+</ul></li>
+<li><strong>Pixel (4,3) [Value: 3]:</strong>
+<ul>
+<li>Subgrid values: <span class="math inline">\(\{2, 3, 1, 2, 3, 5, 2,
+3, 5\} \rightarrow \text{Sorted}: \{1, 2, 2, 2, \mathbf{3}, 3, 3, 5, 5\}
+\implies \text{Median} = \mathbf{3}\)</span></li>
+</ul></li>
+<li><strong>Pixel (4,4) [Value: 5]:</strong>
+<ul>
+<li>Subgrid values: <span class="math inline">\(\{3, 1, 5, 3, 5, 5, 3,
+5, 5\} \rightarrow \text{Sorted}: \{1, 3, 3, 3, \mathbf{5}, 5, 5, 5, 5\}
+\implies \text{Median} = \mathbf{5}\)</span></li>
+</ul></li>
+</ul>
+<h5 id="part-3-comparative-analysis"><strong>Part 3: Comparative
+Analysis</strong></h5>
+<ul>
+<li><p><strong>Averaging Filter Output:</strong> <span
+class="math display">\[I_{\text{avg}} = \begin{bmatrix} 2.89 &amp; 3.44
+&amp; 3.89 \\ 2.89 &amp; 3.44 &amp; 3.89 \\ 2.33 &amp; 2.89 &amp; 3.89
+\end{bmatrix}\]</span></p></li>
+<li><p><strong>Median Filter Output:</strong> <span
+class="math display">\[I_{\text{med}} = \begin{bmatrix} 2 &amp; 3 &amp;
+5 \\ 2 &amp; 3 &amp; 5 \\ 2 &amp; 3 &amp; 5
+\end{bmatrix}\]</span></p></li>
+<li><p><strong>Analytical Verdict:</strong> The <strong>Median
+Filter</strong> is infinitely superior to the Average filter for
+removing <strong>Salt and Pepper noise</strong>.</p>
+<ul>
+<li>The Average filter is a linear operator that spreads out the noise
+into the surrounding neighborhood, blurring the edges and resulting in
+halo artifacts (the salt noise <code>7</code> and pepper noise
+<code>1</code> remain visible as blurred regions with values like
+<code>2.89</code> and <code>3.89</code>).</li>
+<li>The Median filter is a non-linear operator that sorts the
+neighborhood and completely discards outliers. This removes the salt
+(<code>7</code> mapped back to <code>2</code>) and pepper
+(<code>1</code> mapped back to <code>5</code>) noise perfectly,
+restoring the original background gradient with <strong>zero
+blurring</strong> of boundaries.</li>
+</ul></li>
+</ul>
+<p>✍️ <strong>Final Exam Answer:</strong> The complete convolved output
+matrices for both filters are successfully calculated and compared.</p>
+<hr />
+<h2 id="part-c-master-solutions-to-repeated-concepts">📂 PART C: MASTER
+SOLUTIONS TO REPEATED CONCEPTS</h2>
+<h4
+id="repeated-concept-1-log-transformation-dynamic-range-expansion"><strong>REPEATED
+CONCEPT 1: Log Transformation Dynamic Range Expansion</strong></h4>
+<ul>
+<li><strong>Question Variations:</strong>
+<ul>
+<li><em>“Two pixel values of an image are given as 0 and 1000. Apply log
+transform…” (Final Exam 2024-25 Q1h)</em></li>
+<li><em>“Calculate the log transformation for C=1 of the given image…”
+(Re-Exam 23-24 Q5a)</em></li>
+<li><em>“Perform log transformation to the given image with constant
+C=8…” (Class Notes)</em></li>
+</ul></li>
+<li><strong>Master Concept Solution:</strong> The log transformation
+formula is <span class="math inline">\(s = c \log_{10}(1 + r)\)</span>.
+It performs two critical functions:
+<ol type="1">
+<li>It maps a very narrow range of dark input values into a wider output
+range, enhancing detail in dark shadows.</li>
+<li>It compresses a massive range of bright input values (e.g., <span
+class="math inline">\(0\)</span> to <span
+class="math inline">\(1000\)</span>) into a highly manageable display
+range (e.g., <span class="math inline">\(0\)</span> to <span
+class="math inline">\(3\)</span>), preventing saturation or clipping.
+<em>Calculating the Scaling Constant <span
+class="math inline">\(c\)</span> Dynamically:</em> To map the highest
+input value <span class="math inline">\(r_{\text{max}}\)</span> to the
+maximum display level <span class="math inline">\(L-1 = 255\)</span> for
+an 8-bit image: <span class="math display">\[c = \frac{L -
+1}{\log_{10}(1 + r_{\text{max}})}\]</span></li>
+</ol></li>
+</ul>
+<hr />
+<h4
+id="repeated-concept-2-discrete-histogram-equalization-he"><strong>REPEATED
+CONCEPT 2: Discrete Histogram Equalization (HE)</strong></h4>
+<ul>
+<li><strong>Question Variations:</strong>
+<ul>
+<li><em>“Perform histogram equalization on the input image of 8x8…”
+(Final Exam 2024-25 Q3a)</em></li>
+<li><em>“Compute the gray level distribution using histogram
+equalization for the given frequency count…” (Final Exam 2025-26
+Q2a)</em></li>
+<li><em>“Apply histogram equalization process on the 3x3 matrix…” (Lab
+Manual Exp 4)</em></li>
+</ul></li>
+<li><strong>Master Concept Solution:</strong> Discrete Histogram
+Equalization represents an approximation of the continuous integration
+mapping technique. It cannot produce a <em>perfectly flat</em> histogram
+because pixel values must be grouped into discrete bins. The master
+workflow is:
+<ol type="1">
+<li>Calculate total pixels <span class="math inline">\(N = \sum
+n_k\)</span>.</li>
+<li>Compute probability of occurrence (PDF): <span
+class="math inline">\(p_r(r_k) = n_k/N\)</span>.</li>
+<li>Compute Cumulative Distribution Function (CDF): <span
+class="math inline">\(S_k = \sum p_r(r_j)\)</span>.</li>
+<li>Scale to output range: <span class="math inline">\(s_k =
+\text{round}\left( (L-1) \times S_k \right)\)</span>.</li>
+<li>Map old intensity coordinates to new levels <span
+class="math inline">\(s_k\)</span> to construct the output matrix.</li>
+</ol></li>
+</ul>
+<hr />
+<h4
+id="repeated-concept-3-noise-removal-filters-averaging-vs.-median"><strong>REPEATED
+CONCEPT 3: Noise Removal Filters (Averaging vs. Median)</strong></h4>
+<ul>
+<li><strong>Question Variations:</strong>
+<ul>
+<li><em>“Apply 3x3 average and median filter on the given noisy image…”
+(Final Exam 2025-26 Q4a)</em></li>
+<li><em>“Apply median filter of size 3x3 on the underlined pixel…”
+(Final Exam 2024-25 Q1a)</em></li>
+<li><em>“How do average, median, min, max filters handle image
+boundaries?…” (University Question)</em></li>
+</ul></li>
+<li><strong>Master Concept Solution:</strong>
+<ul>
+<li><strong>Averaging Filter (Low-pass):</strong> Linear filter where
+output is the mean of all neighborhood pixels. It attenuates high
+frequencies, effectively reducing <strong>Gaussian noise</strong>, but
+at the cost of severely blurring sharp edges.</li>
+<li><strong>Median Filter (Order-statistics):</strong> Non-linear filter
+where output is the median of sorted neighborhood values. It is highly
+effective in removing <strong>impulse (salt-and-pepper) noise</strong>
+because outliers (0 and 255) are pushed to the extremes during sorting,
+preserving clean, unblurred edge boundaries.</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="part-d-mid-sem-quick-revision-directory">📂 PART D: MID-SEM
+QUICK REVISION DIRECTORY</h2>
+<h3 id="essential-formulas-transformations">1. Essential Formulas &amp;
+Transformations</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">point transformation</th>
+<th style="text-align: left;">Mathematical Equation</th>
+<th style="text-align: left;">Key Visual Effect &amp; Application</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Digital Negative</strong></td>
+<td style="text-align: left;"><span class="math inline">\(s = (L - 1) -
+r\)</span></td>
+<td style="text-align: left;">Reverses gray scale intensities. Used to
+enhance gray/white details in large black regions (e.g., digital
+mammograms, medical CT scans).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Log Transform</strong></td>
+<td style="text-align: left;"><span class="math inline">\(s = c \log(1 +
+r)\)</span></td>
+<td style="text-align: left;">Expands dark values, compresses bright
+values. Perfect for dynamic range compression of Fourier spectra.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Power-Law (Gamma)</strong></td>
+<td style="text-align: left;"><span class="math inline">\(s = c \cdot
+r^{\gamma}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\gamma &lt;
+1\)</span>: Brightens image (shadow detail expansion). <span
+class="math inline">\(\gamma &gt; 1\)</span>: Darkens image (highlight
+details). Display luminance calibration.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Thresholding</strong></td>
+<td style="text-align: left;"><span class="math inline">\(s = 0\)</span>
+(if <span class="math inline">\(r &lt; T\)</span>); else <span
+class="math inline">\(L-1\)</span></td>
+<td style="text-align: left;">Converts grayscale to binary. Image
+segmentation and binarization.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Contrast Stretching</strong></td>
+<td style="text-align: left;">Three piecewise linear slopes</td>
+<td style="text-align: left;">Stretches mid-tones steeply, compresses
+highlights and shadows to improve global image contrast.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="high-priority-filter-masks-to-study">2. High-Priority Filter
+Masks to Study</h3>
+<h4
+id="low-passblurring-filters-all-positive-coefficients"><strong>Low-Pass/Blurring
+Filters (All Positive Coefficients)</strong></h4>
+<ul>
+<li><strong>Standard 3x3 Box / Mean Filter:</strong> <span
+class="math display">\[H_{\text{box}} = \frac{1}{9} \begin{bmatrix} 1
+&amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1
+\end{bmatrix}\]</span></li>
+<li><strong>Standard 3x3 Weighted Average Filter:</strong> <span
+class="math display">\[H_{\text{weighted}} = \frac{1}{16}
+\begin{bmatrix} 1 &amp; 2 &amp; 1 \\ 2 &amp; 4 &amp; 2 \\ 1 &amp; 2
+&amp; 1 \end{bmatrix}\]</span></li>
+</ul>
+<hr />
+<h3 id="last-minute-numerical-revision-checklist">3. Last-Minute
+Numerical Revision Checklist</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>The “Adding 1” in Log
+Transforms:</strong> Never forget to calculate <span
+class="math inline">\(\log(1 + r)\)</span> instead of <span
+class="math inline">\(\log(r)\)</span> to avoid undefined zeros during
+calculations.</label></li>
+<li><label><input type="checkbox" /><strong>Rounding
+vs. Truncation:</strong> In histogram equalization, always round <span
+class="math inline">\((L-1) \times \text{CDF}\)</span> to the
+<strong>nearest integer</strong> (e.g., <span class="math inline">\(1.5
+\rightarrow 2\)</span>, <span class="math inline">\(3.2 \rightarrow
+3\)</span>) rather than truncating, unless specifically instructed
+otherwise.</label></li>
+<li><label><input type="checkbox" /><strong>Sorting for Median
+Filters:</strong> Ensure you list and sort <strong>all 9 values</strong>
+(including the center pixel value itself) before selecting the 5th
+element as the median.</label></li>
+</ul>
+<hr />
+<h2 id="complete-pyq-coverage-checklist">🏁 COMPLETE PYQ COVERAGE
+CHECKLIST</h2>
+<p>The past year exam papers listed below have been thoroughly analyzed,
+and all relevant Unit 2 syllabus topics have been extracted and
+completely solved in this workbook:</p>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" /><strong>NMIMS Final Exam
+December 2025</strong> — Solved: Histogram Equalization Q2a, Median
+Filter Q4a.</label></li>
+<li><label><input type="checkbox" checked="" /><strong>NMIMS Final Exam
+December 2024</strong> — Solved: Underlined Median Filter Q1a, Piecewise
+Contrast Slicing &amp; HE Q2a, Slicing Q5a, Average/Median Noise Filter
+Q2b.</label></li>
+<li><label><input type="checkbox" checked="" /><strong>NMIMS Re-Exam
+December 2024</strong> — Solved: Multi-Filter convolved comparison Q4a,
+Power-Law &amp; Log Transforms Q5a, Global Thresholding Q4b, Average
+Filter Q7b.</label></li>
+<li><label><input type="checkbox" checked="" /><strong>NMIMS Term Exam
+November 2023</strong> — Solved: Piecewise Contrast Stretching Q7b,
+Grayscale vs. Color Histograms Theory Q1a.</label></li>
+<li><label><input type="checkbox" checked="" /><strong>NMIMS Re-Exam
+January 2023</strong> — Solved: Linear spatial Box filter output matrix
+Q10, Histogram Equalization count table Q2a, 8x8 HE Q3a.</label></li>
+</ul>
+<hr />
+<h2 id="out-of-mid-sem-syllabus-do-not-prepare">⚠️ OUT OF MID-SEM
+SYLLABUS — DO NOT PREPARE</h2>
+<p>These topics are strictly <strong>End-Sem only</strong>. They are
+included here only for completeness and should <strong>NOT</strong> be
+studied for your Mid-Sem exam.</p>
+<h3 id="pyq-7-laplacian-sharpening-mask">📍 PYQ 7: Laplacian Sharpening
+Mask</h3>
+<ul>
+<li><p><strong>Verification Status:</strong> 🟢 <strong>Verified
+PYQ</strong></p></li>
+<li><p><strong>Source:</strong> NMIMS Final Exam, Semester V, 2025-26 -
+Q1b [4 Marks]</p></li>
+<li><p><strong>Question Wording:</strong> Consider the following <span
+class="math inline">\(3 \times 3\)</span> grayscale image region: <span
+class="math display">\[I = \begin{bmatrix} 10 &amp; 20 &amp; 30 \\ 40
+&amp; 50 &amp; 60 \\ 70 &amp; 80 &amp; 90 \end{bmatrix}\]</span> Using a
+Laplacian filter having positive center without diagonal elements for
+sharpening, compute the output value at the center pixel (50).</p></li>
+<li><p><strong>Topic:</strong> Sharpening spatial neighborhood filters
+(second-order derivative).</p></li>
+<li><p><strong>Given Information:</strong></p>
+<ul>
+<li><span class="math inline">\(3 \times 3\)</span> image region with
+center intensity <span class="math inline">\(= 50\)</span>.</li>
+<li>Filter: Laplacian with positive center, no diagonal elements.</li>
+</ul></li>
+<li><p><strong>Required:</strong> Output convolved value at the center
+pixel.</p></li>
+</ul>
+<p>⭐ <strong>Formula / Mask:</strong> The Laplacian mask with a
+<strong>positive center</strong> and <strong>no diagonal
+elements</strong> is: <span class="math display">\[H_L = \begin{bmatrix}
+0 &amp; -1 &amp; 0 \\ -1 &amp; 4 &amp; -1 \\ 0 &amp; -1 &amp; 0
+\end{bmatrix}\]</span></p>
+<p>⚡ <strong>Step-by-Step Solution:</strong> * <strong>Step 1: Perform
+2D Convolution on the center pixel:</strong> <span
+class="math display">\[\text{Output} = (50 \times 4) + (20 \times -1) +
+(40 \times -1) + (60 \times -1) + (80 \times -1)\]</span> <span
+class="math display">\[\text{Output} = 200 - 20 - 40 - 60 - 80\]</span>
+<span class="math display">\[\text{Output} = 200 - 200 =
+\mathbf{0}\]</span></p>
+<p>✍️ <strong>Final Exam Answer:</strong> The output value at the center
+pixel after applying the positive-center Laplacian sharpening filter is
+<strong><span class="math inline">\(0\)</span></strong>.</p>
+<h3 id="high-priority-sharpening-filter-masks-end-sem">📍 High-Priority
+Sharpening Filter Masks (End-Sem)</h3>
+<h4
+id="high-passsharpening-filters-center-positive-surrounding-negative-sum-0"><strong>High-Pass/Sharpening
+Filters (Center Positive, Surrounding Negative, Sum = 0)</strong></h4>
+<ul>
+<li><strong>Laplacian Mask (Positive Center, No Diagonals):</strong>
+<span class="math display">\[H_L = \begin{bmatrix} 0 &amp; -1 &amp; 0 \\
+-1 &amp; 4 &amp; -1 \\ 0 &amp; -1 &amp; 0 \end{bmatrix}\]</span></li>
+<li><strong>Laplacian Mask (Positive Center, With Diagonals):</strong>
+<span class="math display">\[H_{L,\text{diag}} = \begin{bmatrix} -1
+&amp; -1 &amp; -1 \\ -1 &amp; 8 &amp; -1 \\ -1 &amp; -1 &amp; -1
+\end{bmatrix}\]</span></li>
+</ul>
+<h4 id="last-minute-sharpening-revision-points"><strong>Last-Minute
+Sharpening Revision Points</strong></h4>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>Laplacian Zero-Sum
+Check:</strong> Double-check that the sum of all coefficients in your
+Laplacian sharpening mask is exactly <strong><span
+class="math inline">\(0\)</span></strong> to prevent shifting the
+average brightness of the image.</label></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>unit2-image-enhancement-notes-v2</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    color: #1f2328;
+    line-height: 1.6;
+    font-size: 16px;
+    background: #ffffff;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    margin-top: 24px;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 2em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #d1d9e0;
+  }
+  h2 {
+    font-size: 1.5em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #d1d9e0;
+    margin-top: 32px;
+  }
+  h3 {
+    font-size: 1.25em;
+    margin-top: 28px;
+  }
+  h4 {
+    font-size: 1.05em;
+  }
+  p, ul, ol { margin-top: 0; margin-bottom: 16px; }
+  ul, ol { padding-left: 2em; }
+  li { margin-top: 0.2em; }
+  li > p { margin-top: 16px; }
+  strong { font-weight: 600; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    background: #f6f8fa;
+    padding: 0.2em 0.4em;
+    border-radius: 6px;
+    font-size: 85%;
+  }
+  pre {
+    background: #f6f8fa;
+    padding: 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    line-height: 1.45;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 85%;
+  }
+  blockquote {
+    border-left: 0.25em solid #d1d9e0;
+    color: #59636e;
+    padding: 0 1em;
+    margin: 0 0 16px;
+  }
+  hr {
+    height: 1px;
+    border: none;
+    background: #d1d9e0;
+    margin: 28px 0;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid #d1d9e0;
+    padding: 6px 13px;
+    text-align: left;
+  }
+  th {
+    background: #f6f8fa;
+    font-weight: 600;
+  }
+  tr:nth-child(2n) {
+    background: #f6f8fa;
+  }
+  a { color: #0969da; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  mjx-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  mjx-container[display="true"] {
+    margin: 1em 0 !important;
+  }
+  .title-block-header { display: none; }
+
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">unit2-image-enhancement-notes-v2</h1>
+</header>
+<h1
+id="unit-2-image-enhancement-spatial-domain---complete-study-notes-v2">Unit
+2: Image Enhancement (Spatial Domain) - Complete Study Notes (v2)</h1>
+<p><strong>Course:</strong> Image and Video Processing (IVP)<br />
+<strong>Level:</strong> SVKM’s NMIMS MPSTME, Semester V (B.Tech
+COMP/EXTC)<br />
+<strong>Primary Source:</strong> <code>IVP UNIT 2.pptx</code> (and
+official course policy documents)<br />
+<strong>Syllabus Covered:</strong> 1. <strong>Point Processing
+Operations</strong>: Digital Negative/Complement, Contrast Stretching,
+Global Thresholding, Intensity-Level Slicing, Logarithmic
+Transformation, Power-Law (Gamma) Transformation. 2. <strong>Histogram
+Processing</strong>: Histogram Equalization (HE), HE
+Algorithm/Procedure, and Solved Numericals. 3. <strong>Neighborhood
+Operations / Spatial Filters (SMOOTHING ONLY)</strong>: Low-Pass
+Filtering, Average Filter, Weighted Average Filter, Median Filter,
+Gaussian Filtering.</p>
+<hr />
+<h2 id="section-1-introduction-to-spatial-domain-image-enhancement">📖
+SECTION 1: Introduction to Spatial Domain Image Enhancement</h2>
+<h3 id="what-is-spatial-domain-image-enhancement">1. What is Spatial
+Domain Image Enhancement?</h3>
+<ul>
+<li><strong>Definition:</strong> Image enhancement refers to the process
+of manipulating a digital image so that the result is more suitable than
+the original image for a specific application [316]. The term
+<strong>“Spatial Domain”</strong> denotes the physical 2-D pixel grid of
+the image [315].</li>
+<li><strong>Mathematical Model:</strong> Spatial domain processing
+operates directly on the pixels of an image [37]. It is represented
+mathematically by the general expression: <span
+class="math display">\[g(x, y) = T[f(x, y)]\]</span> [175] where:
+<ul>
+<li><span class="math inline">\(f(x, y)\)</span> is the input image
+[6].</li>
+<li><span class="math inline">\(g(x, y)\)</span> is the processed output
+image [175].</li>
+<li><span class="math inline">\(T\)</span> is an operator or
+transformation function defined over a specified neighborhood of
+coordinate <span class="math inline">\((x, y)\)</span> [175].</li>
+</ul></li>
+</ul>
+<h3 id="point-processing-vs.-neighborhood-processing">2. Point
+Processing vs. Neighborhood Processing</h3>
+<ul>
+<li><strong>Point Processing (Pixel-by-Pixel):</strong> The neighborhood
+around pixel <span class="math inline">\((x, y)\)</span> has a size of
+<span class="math inline">\(1 \times 1\)</span> [83]. The output
+intensity <span class="math inline">\(s\)</span> at any coordinate
+depends <em>only</em> on the input intensity <span
+class="math inline">\(r\)</span> at that exact coordinate [83].
+<ul>
+<li><em>Equation:</em> <span class="math inline">\(s = T(r)\)</span>
+[83, 175]</li>
+</ul></li>
+<li><strong>Neighborhood Processing (Filtering):</strong> The
+neighborhood is larger (e.g., <span class="math inline">\(3 \times
+3\)</span> or <span class="math inline">\(5 \times 5\)</span>) [84]. The
+output intensity <span class="math inline">\(g(x, y)\)</span> is
+computed based on both the center pixel and its surrounding neighbors
+[84].</li>
+</ul>
+<p>⭐ <strong>Must Remember:</strong> Enhancement is a
+<strong>subjective process</strong> [53]. There is no general
+“universal” theory of image enhancement [316]. What is “good”
+enhancement for a medical radiologist (highlighting bones) might be
+“poor” enhancement for a computer vision navigation system [294].</p>
+<hr />
+<h2 id="section-2-point-processing-operations">📐 SECTION 2: Point
+Processing Operations</h2>
+<p>Point operations map an input intensity level <span
+class="math inline">\(r\)</span> to an output intensity level <span
+class="math inline">\(s\)</span> [83]. For an 8-bit image, intensity
+levels range from <span class="math inline">\([0, L-1]\)</span> where
+<span class="math inline">\(L = 2^8 = 256\)</span> [41, 79].</p>
+<h3 id="digital-negative-complement">1. Digital Negative /
+Complement</h3>
+<ul>
+<li><strong>Definition:</strong> A transformation that subtracts each
+pixel value from the maximum possible intensity level of the image,
+reversing its gray-level scale [66, 117].</li>
+<li><strong>Basic Concept and Intuition:</strong> Maps bright values to
+dark ones and dark values to bright ones, producing the digital
+equivalent of a photographic negative [117, 159]. This is highly
+intuitive for visual verification—bone details in radiographs appear as
+dark lines on a bright background.</li>
+<li><strong>Mathematical Formula:</strong> <span
+class="math display">\[s = (L - 1) - r\]</span> [66]</li>
+<li><strong>Variable Meanings:</strong>
+<ul>
+<li><span class="math inline">\(r\)</span>: Input pixel intensity level
+(<span class="math inline">\(r \in [0, L-1]\)</span>) [66].</li>
+<li><span class="math inline">\(s\)</span>: Transformed output pixel
+intensity level [66].</li>
+<li><span class="math inline">\(L\)</span>: Total number of gray levels
+in the image (<span class="math inline">\(L = 2^k\)</span> for a <span
+class="math inline">\(k\)</span>-bit image) [31, 91].</li>
+<li><span class="math inline">\(L - 1\)</span>: Maximum possible
+intensity value on that scale [31, 91].</li>
+</ul></li>
+<li><strong>Step-by-Step Method:</strong>
+<ol type="1">
+<li>Identify the bit depth <span class="math inline">\(k\)</span> of the
+image [31].</li>
+<li>Compute the maximum gray level <span class="math inline">\(L-1 = 2^k
+- 1\)</span> [31].</li>
+<li>Subtract each input pixel’s value <span
+class="math inline">\(r\)</span> from <span
+class="math inline">\(L-1\)</span> to compute <span
+class="math inline">\(s\)</span> [31].</li>
+<li>Construct the output matrix using the computed <span
+class="math inline">\(s\)</span> values.</li>
+</ol></li>
+<li><strong>Example (3-bit, <span
+class="math inline">\(L-1=7\)</span>):</strong> For input <span
+class="math inline">\(r = 2 \implies s = 7 - 2 = 5\)</span>. For input
+matrix <span class="math inline">\(A\)</span> in Section 2: <span
+class="math display">\[A_{\text{neg}} = \begin{bmatrix} 6 &amp; 5 &amp;
+5 &amp; 5 &amp; 5 \\ 4 &amp; 5 &amp; 3 &amp; 2 &amp; 5 \\ 0 &amp; 0
+&amp; 0 &amp; 0 &amp; 1 \\ 5 &amp; 5 &amp; 5 &amp; 4 &amp; 4 \\ 3 &amp;
+3 &amp; 3 &amp; 3 &amp; 3 \end{bmatrix}\]</span></li>
+<li><strong>Applications:</strong> Medical imaging (e.g., chest X-rays,
+mammograms) to show small details in dominant dark areas more clearly
+[74, 117].</li>
+<li><strong>Advantages:</strong> Simple arithmetic subtraction; requires
+zero training or parameter tuning; highly effective for clinical
+analysis of dense tissues [74, 117].</li>
+<li><strong>Limitations:</strong> Completely washes out contrast in
+bright regions; unsuitable for standard, well-illuminated digital
+photographs.</li>
+<li>⭐ <strong>Must Remember:</strong> Always use <span
+class="math inline">\(L - 1\)</span> as the subtrahend, not <span
+class="math inline">\(L\)</span>. Subtracting from <span
+class="math inline">\(256\)</span> instead of <span
+class="math inline">\(255\)</span> results in out-of-range pixels!</li>
+<li>🧠 <strong>Must Understand:</strong> It is a linear transformation
+with a negative slope (<span class="math inline">\(\text{slope} =
+-1\)</span>) and an intercept of <span
+class="math inline">\(L-1\)</span>.</li>
+<li>✍️ <strong>Exam Focus:</strong> Verify the bit depth first! A “3-bit
+image negative” means subtracting from 7, not 255.</li>
+<li>⚠️ <strong>Common Mistakes:</strong> Forgetting to subtract from
+<span class="math inline">\(L-1\)</span> and using <span
+class="math inline">\(L\)</span> instead, resulting in overflow.</li>
+</ul>
+<hr />
+<h3 id="contrast-stretching">2. Contrast Stretching</h3>
+<ul>
+<li><strong>Definition:</strong> A piecewise-linear transformation
+designed to expand the dynamic range of gray levels in an image
+[122].</li>
+<li><strong>Basic Concept and Intuition:</strong> Low-contrast images
+often result from poor illumination or sensor constraints, clustering
+the histogram in a tight band. Contrast stretching “pulls” this
+clustered band apart, stretching it across the full display scale (<span
+class="math inline">\([0, L-1]\)</span>) to increase the perceptual
+contrast.</li>
+<li><strong>Mathematical Formula (Piecewise Linear):</strong> <span
+class="math display">\[s = \begin{cases} \alpha \cdot r &amp; 0 \le r
+&lt; r_1 \\ \beta \cdot (r - r_1) + s_1 &amp; r_1 \le r &lt; r_2 \\
+\gamma \cdot (r - r_2) + s_2 &amp; r_2 \le r \le L-1
+\end{cases}\]</span> [281] Where regional slopes are calculated as:
+<span class="math display">\[\alpha = \frac{s_1}{r_1}, \quad \beta =
+\frac{s_2 - s_1}{r_2 - r_1}, \quad \gamma = \frac{(L-1) - s_2}{(L-1) -
+r_2}\]</span> [281]</li>
+<li><strong>Variable Meanings:</strong>
+<ul>
+<li><span class="math inline">\(r, s\)</span>: Input and output pixel
+intensities.</li>
+<li><span class="math inline">\((r_1, s_1)\)</span> and <span
+class="math inline">\((r_2, s_2)\)</span>: Control points that define
+the boundaries and slopes of the three segments [281].</li>
+<li><span class="math inline">\(\alpha, \beta, \gamma\)</span>: Slopes
+of the respective segments [281].</li>
+<li><span class="math inline">\(L - 1\)</span>: Maximum possible
+intensity value.</li>
+</ul></li>
+<li><strong>Step-by-Step Method:</strong>
+<ol type="1">
+<li>Identify control points <span class="math inline">\((r_1,
+s_1)\)</span> and <span class="math inline">\((r_2, s_2)\)</span> from
+the problem statement [281].</li>
+<li>Compute regional slopes <span class="math inline">\(\alpha,
+\beta,\)</span> and <span class="math inline">\(\gamma\)</span>
+[281].</li>
+<li>For each pixel <span class="math inline">\(r\)</span>, check which
+region it falls into and apply the corresponding formula [183].</li>
+<li>Round the resulting <span class="math inline">\(s\)</span> value to
+the nearest integer.</li>
+<li>Construct the output matrix.</li>
+</ol></li>
+<li><strong>Example (3-bit, <span
+class="math inline">\(L-1=7\)</span>):</strong> For <span
+class="math inline">\((r_1, s_1) = (3, 2)\)</span> and <span
+class="math inline">\((r_2, s_2) = (5, 6)\)</span>, the slopes are <span
+class="math inline">\(\alpha = 0.67\)</span>, <span
+class="math inline">\(\beta = 2.0\)</span>, <span
+class="math inline">\(\gamma = 0.5\)</span>. The mapped matrix is: <span
+class="math display">\[A_{\text{stretched}} = \begin{bmatrix} 4 &amp; 2
+&amp; 6 &amp; 1 \\ 2 &amp; 7 &amp; 4 &amp; 7 \\ 1 &amp; 1 &amp; 7 &amp;
+6 \\ 7 &amp; 7 &amp; 4 &amp; 1 \end{bmatrix}\]</span></li>
+<li><strong>Applications:</strong> Contrast enhancement of satellite,
+aerial runway, or electron microscope imagery [122].</li>
+<li><strong>Advantages:</strong> Flexible and tunable contrast
+adjustment by shifting control points; simple linear calculations.</li>
+<li><strong>Limitations:</strong> Requires manual selection of control
+points; can introduce harsh threshold-like binarization if slopes are
+overly steep.</li>
+<li>⭐ <strong>Must Remember:</strong> If slopes are <span
+class="math inline">\(&gt;1\)</span>, contrast is stretched; if <span
+class="math inline">\(&lt;1\)</span>, contrast is compressed; if <span
+class="math inline">\(=1\)</span>, it remains unchanged (identity).</li>
+<li>🧠 <strong>Must Understand:</strong> When <span
+class="math inline">\(r_1 = r_2\)</span> and <span
+class="math inline">\(s_1 = 0, s_2 = L-1\)</span>, the transformation
+simplifies to a <strong>thresholding function</strong>, producing a
+binary image.</li>
+<li>✍️ <strong>Exam Focus:</strong> Show intermediate slope calculations
+and mapped intensity tables clearly.</li>
+<li>⚠️ <strong>Common Mistakes:</strong> Misclassifying boundary pixels
+(e.g. applying the wrong segment formula at <span
+class="math inline">\(r = r_1\)</span> or <span class="math inline">\(r
+= r_2\)</span>).</li>
+</ul>
+<hr />
+<h3 id="global-thresholding">3. Global Thresholding</h3>
+<ul>
+<li><strong>Definition:</strong> A point operation that binarizes an
+image based on a single global threshold value <span
+class="math inline">\(T\)</span>, segmenting it into foreground and
+background [19].</li>
+<li><strong>Basic Concept and Intuition:</strong> Separates an image
+with a bimodal histogram into two regions. Any pixel brighter than <span
+class="math inline">\(T\)</span> becomes white, and any pixel darker
+than or equal to <span class="math inline">\(T\)</span> becomes
+black.</li>
+<li><strong>Mathematical Formula:</strong> <span
+class="math display">\[s = \begin{cases} L-1 &amp; \text{if } r &gt; T
+\\ 0 &amp; \text{if } r \le T \end{cases}\]</span> [94, 290]</li>
+<li><strong>Variable Meanings:</strong>
+<ul>
+<li><span class="math inline">\(r, s\)</span>: Input and output
+intensities.</li>
+<li><span class="math inline">\(T\)</span>: The binarization
+threshold.</li>
+<li><span class="math inline">\(L - 1\)</span>: Maximum intensity
+(white).</li>
+</ul></li>
+<li><strong>Step-by-Step Method (Iterative Estimation):</strong>
+<ol type="1">
+<li>Compute an initial threshold <span
+class="math inline">\(T_0\)</span> as the average intensity of all
+pixels in the image [95, 265].</li>
+<li>Segment the image using <span class="math inline">\(T_0\)</span> to
+form two classes of pixels: <span class="math inline">\(G_1\)</span>
+(pixels <span class="math inline">\(&gt; T_0\)</span>) and <span
+class="math inline">\(G_2\)</span> (pixels <span
+class="math inline">\(\le T_0\)</span>) [95, 96, 265].</li>
+<li>Calculate the mean intensities <span
+class="math inline">\(\mu_1\)</span> and <span
+class="math inline">\(\mu_2\)</span> for <span
+class="math inline">\(G_1\)</span> and <span
+class="math inline">\(G_2\)</span> [96, 265].</li>
+<li>Update the threshold: <span class="math inline">\(T_{\text{new}} =
+\frac{\mu_1 + \mu_2}{2}\)</span> [96, 270].</li>
+<li>Repeat Steps 2-4 until the threshold converges (<span
+class="math inline">\(T_{\text{new}} = T_{\text{previous}}\)</span>)
+[96, 271].</li>
+</ol></li>
+<li><strong>Example (<span class="math inline">\(3 \times 3\)</span>
+matrix):</strong> <span class="math display">\[f(x, y) = \begin{bmatrix}
+5 &amp; 3 &amp; 9 \\ 2 &amp; 1 &amp; 7 \\ 8 &amp; 4 &amp; 2
+\end{bmatrix}\]</span> Iterative global thresholding converges at <span
+class="math inline">\(T = 6\)</span>, yielding: <span
+class="math display">\[g(x, y) = \begin{bmatrix} 0 &amp; 0 &amp; 1 \\ 0
+&amp; 0 &amp; 1 \\ 1 &amp; 0 &amp; 0 \end{bmatrix}\]</span></li>
+<li><strong>Applications:</strong> Document binarization, optical
+character recognition (OCR) preprocessing, segmenting distinct
+high-contrast objects.</li>
+<li><strong>Advantages:</strong> Extremely fast, fully automated,
+requires no human intervention for bimodal histograms.</li>
+<li><strong>Limitations:</strong> Fails completely under non-uniform
+illumination or shadows.</li>
+<li>⭐ <strong>Must Remember:</strong> The partition groups <span
+class="math inline">\(G_1\)</span> and <span
+class="math inline">\(G_2\)</span> must contain actual pixel intensity
+values, while means <span class="math inline">\(\mu_1, \mu_2\)</span>
+are arithmetic averages of those values.</li>
+<li>🧠 <strong>Must Understand:</strong> Convergence is guaranteed when
+the split groups remain identical between iterations.</li>
+<li>✍️ <strong>Exam Focus:</strong> Write down the elements of <span
+class="math inline">\(G_1\)</span> and <span
+class="math inline">\(G_2\)</span> at each iteration and compute class
+means carefully.</li>
+<li>⚠️ <strong>Common Mistakes:</strong> Miscalculating the class means
+or neglecting to round according to specified rules.</li>
+</ul>
+<hr />
+<h3 id="intensity-level-slicing-gray-level-slicing">4. Intensity-Level
+Slicing / Gray-Level Slicing</h3>
+<ul>
+<li><strong>Definition:</strong> An intensity transformation that
+highlights a specific range of gray levels <span
+class="math inline">\([a, b]\)</span> of interest [90, 123].</li>
+<li><strong>Basic Concept and Intuition:</strong> Similar to a bandpass
+filter. If we are interested in water bodies or specific blood vessel
+densities, we highlight that specific intensity band <span
+class="math inline">\([a, b]\)</span> as white, while either setting all
+other pixels to black or leaving them unchanged.</li>
+<li><strong>Mathematical Formulas:</strong>
+<ol type="1">
+<li><strong>Without Background Preservation (Binary Slicing):</strong>
+<span class="math display">\[s = \begin{cases} L-1 &amp; \text{if } a
+\le r \le b \\ 0 &amp; \text{otherwise} \end{cases}\]</span> [64,
+275]</li>
+<li><strong>With Background Preservation:</strong> <span
+class="math display">\[s = \begin{cases} L-1 &amp; \text{if } a \le r
+\le b \\ r &amp; \text{otherwise} \end{cases}\]</span> [198, 275]</li>
+</ol></li>
+<li><strong>Variable Meanings:</strong>
+<ul>
+<li><span class="math inline">\(r, s\)</span>: Input and output pixel
+values.</li>
+<li><span class="math inline">\([a, b]\)</span>: Selected gray-level
+band of interest.</li>
+<li><span class="math inline">\(L - 1\)</span>: Highlight intensity
+value (usually max gray level).</li>
+</ul></li>
+<li><strong>Step-by-Step Method:</strong>
+<ol type="1">
+<li>Determine the highlight range <span class="math inline">\([a,
+b]\)</span> (often specified as percentages of the max possible
+intensity).</li>
+<li>Check each pixel’s intensity <span class="math inline">\(r\)</span>.
+If it lies inside <span class="math inline">\([a, b]\)</span>, map it to
+<span class="math inline">\(L-1\)</span>.</li>
+<li>If <span class="math inline">\(r\)</span> lies outside <span
+class="math inline">\([a, b]\)</span>:
+<ul>
+<li>Map to 0 (Without Background).</li>
+<li>Keep original value <span class="math inline">\(r\)</span> (With
+Background).</li>
+</ul></li>
+<li>Construct the output matrix.</li>
+</ol></li>
+<li><strong>Example (3-bit, target <span class="math inline">\(r \in
+[3,4]\)</span>):</strong> For matrix <span
+class="math inline">\(A\)</span> in Section 2, <span
+class="math display">\[A_{\text{without}} = \begin{bmatrix} 0 &amp; 7
+&amp; 0 &amp; 0 &amp; 7 \\ 0 &amp; 7 &amp; 7 &amp; 0 &amp; 0 \\ 0 &amp;
+7 &amp; 0 &amp; 0 &amp; 0 \\ 7 &amp; 0 &amp; 7 &amp; 0 &amp; 0 \\ 0
+&amp; 7 &amp; 0 &amp; 7 &amp; 0 \end{bmatrix}\]</span></li>
+<li><strong>Applications:</strong> Enhancing specific geographic
+elevations or water bodies in satellite imaging; highlighting flaws in
+industrial X-rays [181].</li>
+<li><strong>Advantages:</strong> Outstanding for targeted feature
+isolation.</li>
+<li><strong>Limitations:</strong> Slicing without background discards
+all other contextual visual details.</li>
+<li>⭐ <strong>Must Remember:</strong> Slicing with background keeps
+other pixels unchanged as <span class="math inline">\(r\)</span>, while
+slicing without background sets them to 0.</li>
+<li>🧠 <strong>Must Understand:</strong> It is a piecewise constant
+point operation.</li>
+<li>✍️ <strong>Exam Focus:</strong> Be careful when the range is
+described using percentages (e.g. “40% to 70% of max intensity”).</li>
+<li>⚠️ <strong>Common Mistakes:</strong> Accidentally setting the
+background pixels to 0 when “With Background” is requested, or
+vice-versa.</li>
+</ul>
+<hr />
+<h3 id="logarithmic-transformation">5. Logarithmic Transformation</h3>
+<ul>
+<li><strong>Definition:</strong> A non-linear point operation that maps
+a narrow range of low-intensity dark values into a wider range of output
+levels [85, 118, 177].</li>
+<li><strong>Basic Concept and Intuition:</strong> Human visual
+perception is roughly logarithmic. When an image contains a massive
+range of intensities, high values dominate the display, leaving dark
+details completely invisible. The log transform compresses this range,
+expanding low gray levels while compressing high ones.</li>
+<li><strong>Mathematical Formula:</strong> <span
+class="math display">\[s = c \log_{10}(1 + r)\]</span> [41, 65,
+256]</li>
+<li><strong>Variable Meanings:</strong>
+<ul>
+<li><span class="math inline">\(r, s\)</span>: Input and output pixel
+values (<span class="math inline">\(r \ge 0\)</span>).</li>
+<li><span class="math inline">\(c\)</span>: Scaling constant used to
+stretch output values across the display range [277].</li>
+<li><span class="math inline">\(\log_{10}\)</span>: Base-10
+logarithm.</li>
+</ul></li>
+<li><strong>Step-by-Step Method:</strong>
+<ol type="1">
+<li>Identify or calculate <span class="math inline">\(c\)</span> using:
+<span class="math inline">\(c = \frac{L-1}{\log_{10}(1 +
+(L-1))}\)</span> [277].</li>
+<li>Compute the transformed value <span class="math inline">\(s = c
+\log_{10}(1 + r)\)</span> for each unique intensity level.</li>
+<li>Round computed output values to the nearest integer.</li>
+<li>Reconstruct the output matrix.</li>
+</ol></li>
+<li><strong>Example (3-bit, <span
+class="math inline">\(c=8\)</span>):</strong> <span
+class="math display">\[A = \begin{bmatrix} 2 &amp; 3 &amp; 0 &amp; 6
+&amp; 7 \\ 0 &amp; 3 &amp; 7 &amp; 5 &amp; 2 \\ 5 &amp; 3 &amp; 2 &amp;
+4 &amp; 0 \\ 4 &amp; 2 &amp; 2 &amp; 1 &amp; 0 \\ 1 &amp; 7 &amp; 6
+&amp; 4 &amp; 5 \end{bmatrix} \implies A_{\text{log}} = \begin{bmatrix}
+4 &amp; 5 &amp; 0 &amp; 7 &amp; 7 \\ 0 &amp; 5 &amp; 7 &amp; 6 &amp; 4
+\\ 6 &amp; 5 &amp; 4 &amp; 6 &amp; 0 \\ 6 &amp; 4 &amp; 4 &amp; 2 &amp;
+0 \\ 2 &amp; 7 &amp; 7 &amp; 6 &amp; 6 \end{bmatrix}\]</span></li>
+<li><strong>Applications:</strong> Compressing the high dynamic range of
+Fourier spectrum coefficients so low-intensity spectrum details are
+visible [76].</li>
+<li><strong>Advantages:</strong> Dramatically enhances dark details
+without losing context.</li>
+<li><strong>Limitations:</strong> Compresses and washes out contrast in
+bright highlight regions; shape of the curve is fixed.</li>
+<li>⭐ <strong>Must Remember:</strong> We add <strong>1</strong> to
+<span class="math inline">\(r\)</span> because <span
+class="math inline">\(\log(0)\)</span> is mathematically undefined!
+Adding 1 maps <span class="math inline">\(0 \to \log(1) =
+0\)</span>.</li>
+<li>🧠 <strong>Must Understand:</strong> Base-10 logarithms (<span
+class="math inline">\(\log_{10}\)</span>) are standard in NMIMS exam
+matrices, though natural log (<span class="math inline">\(\ln\)</span>)
+is also used in some textbook formulas.</li>
+<li>✍️ <strong>Exam Focus:</strong> Show your mapping lookup table for
+values <span class="math inline">\(0\)</span> to <span
+class="math inline">\(7\)</span> clearly before applying it to the
+matrix.</li>
+<li>⚠️ <strong>Common Mistakes:</strong> Forgetting to add 1 to <span
+class="math inline">\(r\)</span>, leading to calculation errors at <span
+class="math inline">\(r=0\)</span>.</li>
+</ul>
+<hr />
+<h3 id="power-law-gamma-transformation">6. Power-Law / Gamma
+Transformation</h3>
+<ul>
+<li><strong>Definition:</strong> A non-linear point operation that
+raises the input intensity to a power <span
+class="math inline">\(\gamma\)</span>, used for contrast tuning and
+display calibration [13, 201].</li>
+<li><strong>Basic Concept and Intuition:</strong> Most display devices,
+camera sensors, and printers exhibit a non-linear relationship between
+voltage and brightness (known as the device gamma). Power-law transforms
+are used to pre-compensate (Gamma Correction) to ensure realistic linear
+visual display.</li>
+<li><strong>Mathematical Formula:</strong> <span
+class="math display">\[s = c \cdot r^{\gamma}\]</span> [43, 65,
+231]</li>
+<li><strong>Variable Meanings:</strong>
+<ul>
+<li><span class="math inline">\(r, s\)</span>: Input and output pixel
+intensities.</li>
+<li><span class="math inline">\(c, \gamma\)</span>: Positive constants
+[43, 231].</li>
+<li><span class="math inline">\(\gamma\)</span>: The power exponent
+(gamma) [27].</li>
+</ul></li>
+<li><strong>Step-by-Step Method:</strong>
+<ol type="1">
+<li>Determine parameters <span class="math inline">\(c\)</span> and
+<span class="math inline">\(\gamma\)</span>.</li>
+<li>Map each level using <span class="math inline">\(s = c \cdot
+r^{\gamma}\)</span> [10].</li>
+<li>Clip values at the maximum allowed gray level <span
+class="math inline">\(L-1\)</span> if direct non-normalized
+exponentiation exceeds the range.</li>
+<li>Round mapped values to the nearest integer.</li>
+<li>Construct the output matrix.</li>
+</ol></li>
+<li><strong>Example (3-bit, <span class="math inline">\(c=3,
+\gamma=0.5\)</span>):</strong> <span
+class="math display">\[A_{\text{gamma}} = \begin{bmatrix} 4 &amp; 5
+&amp; 0 &amp; 7 &amp; 7 \\ 0 &amp; 5 &amp; 7 &amp; 7 &amp; 4 \\ 7 &amp;
+5 &amp; 4 &amp; 6 &amp; 0 \\ 6 &amp; 4 &amp; 4 &amp; 3 &amp; 0 \\ 3
+&amp; 7 &amp; 7 &amp; 6 &amp; 7 \end{bmatrix}\]</span></li>
+<li><strong>Applications:</strong> Gamma correction for display
+calibration, detail expansion in washed-out aerial images or dark
+medical scans [230].</li>
+<li><strong>Advantages:</strong> Highly versatile; a family of curves is
+generated simply by varying <span class="math inline">\(\gamma\)</span>
+[114].</li>
+<li><strong>Limitations:</strong> Over-enhancement can introduce noise;
+requires proper normalization to avoid numerical overflows.</li>
+<li>⭐ <strong>Must Remember:</strong> <span
+class="math inline">\(\gamma &lt; 1\)</span> stretches dark levels
+(similar to log); <span class="math inline">\(\gamma &gt; 1\)</span>
+stretches bright levels (darkens the image).</li>
+<li>🧠 <strong>Must Understand:</strong> Standard computer displays
+assume a target gamma of 2.2, requiring a correction exponent of <span
+class="math inline">\(1/2.2 \approx 0.45\)</span>.</li>
+<li>✍️ <strong>Exam Focus:</strong> Note whether the question asks for
+normalized intensities or direct raw integer calculations.</li>
+<li>⚠️ <strong>Common Mistakes:</strong> Misapplying fractional powers
+(e.g. squaring instead of taking the square root for <span
+class="math inline">\(\gamma = 0.5\)</span>).</li>
+</ul>
+<hr />
+<h2 id="section-3-histogram-processing">📊 SECTION 3: Histogram
+Processing</h2>
+<h3 id="what-is-an-image-histogram">1. What is an Image Histogram?</h3>
+<p>A histogram represents the frequency of occurrence of each gray level
+in an image [182]. For an image with gray levels in range <span
+class="math inline">\([0, L-1]\)</span>, the histogram is defined as:
+<span class="math display">\[h(r_k) = n_k\]</span> where: * <span
+class="math inline">\(r_k\)</span>: The <span
+class="math inline">\(k\)</span>-th gray level [182]. * <span
+class="math inline">\(n_k\)</span>: The number of pixels having
+intensity <span class="math inline">\(r_k\)</span> [182]. * The
+<strong>normalized histogram</strong> is the Probability Density
+Function (PDF): <span class="math inline">\(p_r(r_k) =
+\frac{n_k}{N}\)</span>, representing the likelihood of occurrence of
+level <span class="math inline">\(r_k\)</span> [19].</p>
+<hr />
+<h3 id="histogram-equalization-he">2. Histogram Equalization (HE)</h3>
+<ul>
+<li><strong>Definition:</strong> A contrast enhancement technique that
+achieves a more uniform intensity distribution by mapping the cumulative
+distribution function (CDF) of the image’s histogram to the output gray
+levels [182].</li>
+<li><strong>Basic Concept and Intuition:</strong> Spreads out the most
+frequent intensity levels across the entire gray-level spectrum,
+effectively flattening the histogram and maximizing visual
+contrast.</li>
+<li><strong>Transformation Function:</strong> <span
+class="math display">\[s_k = T(r_k) = (L - 1) \cdot \sum_{j=0}^{k}
+p_r(r_j) = (L - 1) \cdot \text{CDF}(r_k)\]</span> where:
+<ul>
+<li><span class="math inline">\(p_r(r_j) = \frac{n_j}{N}\)</span> is the
+PDF.</li>
+<li><span class="math inline">\(N\)</span> is the total number of pixels
+in the image [182].</li>
+<li><span class="math inline">\(\text{CDF}(r_k)\)</span> is the
+Cumulative Distribution Function [182].</li>
+</ul></li>
+<li><strong>Step-by-Step Algorithm (The Exact Procedure):</strong>
+<ol type="1">
+<li>Count the pixel frequency <span class="math inline">\(n_k\)</span>
+for each gray level <span class="math inline">\(r_k\)</span> from <span
+class="math inline">\(0\)</span> to <span
+class="math inline">\(L-1\)</span>.</li>
+<li>Sum the frequencies to find the total pixel count <span
+class="math inline">\(N = \sum n_k\)</span>.</li>
+<li>Compute the Probability Density Function (PDF) for each level: <span
+class="math inline">\(p_r(r_k) = \frac{n_k}{N}\)</span>.</li>
+<li>Compute the running sum of PDFs to find the Cumulative Distribution
+Function (CDF): <span class="math inline">\(\text{CDF}(r_k) =
+\sum_{j=0}^{k} p_r(r_j)\)</span>.</li>
+<li>Calculate the transformed scaled values: <span
+class="math inline">\(s_k&#39; = (L-1) \cdot
+\text{CDF}(r_k)\)</span>.</li>
+<li>Round the scaled values to the nearest integer: <span
+class="math inline">\(s_k = \text{round}(s_k&#39;)\)</span>.</li>
+<li>Remap the original pixel values in the input image matrix using the
+mapped values <span class="math inline">\(s_k\)</span>.</li>
+<li>Construct the output matrix and count the final distribution.</li>
+</ol></li>
+</ul>
+<hr />
+<h3 id="solved-numerical-example">3. Solved Numerical Example</h3>
+<p>(Refer to the detailed calculation table and output matrix mapping
+shown in the Section 3 HE numerical above, which maps input matrix <span
+class="math inline">\(f\)</span> to output <span
+class="math inline">\(g\)</span>): <span class="math display">\[f(x, y)
+= \begin{bmatrix} 5 &amp; 2 &amp; 2 \\ 6 &amp; 7 &amp; 3 \\ 3 &amp; 7
+&amp; 3 \end{bmatrix} \quad\longrightarrow\quad g(x, y) =
+\begin{bmatrix} 5 &amp; 2 &amp; 2 \\ 5 &amp; 7 &amp; 4 \\ 4 &amp; 7
+&amp; 4 \end{bmatrix}\]</span> * <strong>Applications:</strong> Medical
+scans (X-rays, MRIs), satellite imaging, underwater imaging, and
+low-contrast consumer photos. * <strong>Advantages:</strong> Fully
+automated and parameter-free; highly consistent mathematical Point
+operation. * <strong>Limitations:</strong> Can over-enhance background
+noise; is not suitable for color images if applied to RGB channels
+directly (causes severe color distortion; must use YCbCr/HSV luminance
+equalization instead). * ⭐ <strong>Must Remember:</strong> Sum of all
+normalized frequencies (PDF) must equal 1.0, and the final CDF value
+must equal 1.0. * 🧠 <strong>Must Understand (Why HE is not perfectly
+flat):</strong> Remapping discrete histogram components cannot split
+pixel clusters. Since it is a point transform, all pixels with input
+value <span class="math inline">\(r_k\)</span> must map together to
+output value <span class="math inline">\(s_k\)</span>. Therefore,
+discrete HE only redistributes components but cannot produce a perfectly
+uniform, flat histogram [94]. * ✍️ <strong>Exam Focus:</strong> Set up
+your table columns exactly as shown in the PPT: Gray level <span
+class="math inline">\(\to n_k \to \text{PDF} \to \text{CDF} \to
+(L-1)\cdot\text{CDF} \to \text{Rounded } s_k\)</span>. * ⚠️
+<strong>Common Mistakes:</strong> Skipping the rounding step or
+forgetting to multiply by the scale factor <span
+class="math inline">\(L-1\)</span>.</p>
+<hr />
+<h2
+id="section-4-neighborhood-processing-spatial-filters-smoothing-only">🛡️
+SECTION 4: Neighborhood Processing &amp; Spatial Filters (SMOOTHING
+ONLY)</h2>
+<p>Neighborhood operations (filtering) modify the intensity of a pixel
+based on the intensities of surrounding pixels inside a small local
+sub-grid (often <span class="math inline">\(3 \times 3\)</span> or <span
+class="math inline">\(5 \times 5\)</span>) [84].</p>
+<pre><code>       3x3 Neighborhood Window
+      ┌───┬───┬───┐
+      │w1 │w2 │w3 │
+      ├───┼───┼───┤
+      │w4 │w5 │w6 │   ◄─── Mask / Kernel Coefficients
+      ├───┼───┼───┤
+      │w7 │w8 │w9 │
+      └───┴───┴───┘</code></pre>
+<h3 id="mechanics-of-neighborhood-processing-spatial-convolution">1.
+Mechanics of Neighborhood Processing (Spatial Convolution)</h3>
+<p>The filtered value at center pixel is computed by multiplying mask
+coefficients with underlying pixel values, and summing them up: <span
+class="math display">\[g(x, y) = \sum_{s=-a}^{a} \sum_{t=-b}^{b} w(s, t)
+\cdot f(x+s, y+t)\]</span></p>
+<hr />
+<h3 id="smoothing-spatial-filters-low-pass-filtering">2. Smoothing
+Spatial Filters (Low-Pass Filtering)</h3>
+<p>Smoothing is used to reduce high-frequency noise and eliminate
+irrelevant details, acting as a low-pass filter in the spatial domain
+[174, 235].</p>
+<h4 id="a.-standard-average-box-filter"><strong>A. Standard Average
+(Box) Filter</strong></h4>
+<ul>
+<li><strong>Definition:</strong> A linear smoothing filter where the
+output pixel is the simple arithmetic mean of all pixels in its
+neighborhood window [83, 174].</li>
+<li><strong>Mask (3x3):</strong> All coefficients are positive and equal
+to <span class="math inline">\(1/9\)</span>: <span
+class="math display">\[H_{\text{box}} = \frac{1}{9} \begin{bmatrix} 1
+&amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1
+\end{bmatrix}\]</span> [46, 125]</li>
+<li><strong>Variable Meanings:</strong> Coefficients are <span
+class="math inline">\(1/(M \cdot N)\)</span> where <span
+class="math inline">\(M \times N\)</span> is mask size.</li>
+<li><strong>Step-by-Step Method:</strong>
+<ol type="1">
+<li>Place mask over target pixel <span class="math inline">\((x,
+y)\)</span>.</li>
+<li>Sum all pixels covered by the mask.</li>
+<li>Divide by the total number of pixels in the window (e.g., 9)
+[45].</li>
+<li>Set this average as the new intensity of the center pixel.</li>
+</ol></li>
+<li><strong>Example (Center Pixel calculation):</strong> For sub-matrix
+centered at 15: <span class="math display">\[\text{Neighborhood} =
+\begin{bmatrix} 3 &amp; 9 &amp; 11 \\ 7 &amp; 15 &amp; 8 \\ 10 &amp; 12
+&amp; 9 \end{bmatrix} \implies \text{Average} = \frac{84}{9} =
+\mathbf{9.33}\]</span> [125]</li>
+<li><strong>Applications:</strong> Noise reduction, general blurring to
+remove fine details.</li>
+<li><strong>Advantages:</strong> Extremely simple to implement; very
+fast computation.</li>
+<li><strong>Limitations:</strong> Blurs sharp edges significantly,
+losing important structural details.</li>
+<li>⭐ <strong>Must Remember:</strong> All mask coefficients must be
+positive and normalize to sum to 1 to preserve overall image brightness
+[36].</li>
+<li>🧠 <strong>Must Understand:</strong> As window size increases, the
+blurring effect becomes stronger and more details are lost [39].</li>
+<li>✍️ <strong>Exam Focus:</strong> Divide the final sum by the total
+number of coefficients (e.g. 9 or 25) to normalize correctly.</li>
+<li>⚠️ <strong>Common Mistakes:</strong> Forgetting to divide by the
+normalization constant.</li>
+</ul>
+<h4 id="b.-weighted-average-filter"><strong>B. Weighted Average
+Filter</strong></h4>
+<ul>
+<li><strong>Definition:</strong> A linear smoothing filter where pixels
+closer to the mask center are given higher weights [125, 174].</li>
+<li><strong>Mask (3x3):</strong> Center is weighted highest, dropping
+off inversely as a function of distance: <span
+class="math display">\[H_{\text{weighted}} = \frac{1}{16}
+\begin{bmatrix} 1 &amp; 2 &amp; 1 \\ 2 &amp; 4 &amp; 2 \\ 1 &amp; 2
+&amp; 1 \end{bmatrix}\]</span></li>
+<li><strong>Step-by-Step Method:</strong>
+<ol type="1">
+<li>Place mask over target pixel.</li>
+<li>Multiply each underlying pixel by its corresponding mask
+weight.</li>
+<li>Sum all weighted products.</li>
+<li>Divide by the sum of all mask weights (e.g., 16).</li>
+</ol></li>
+<li><strong>Example:</strong> For the sub-matrix above centered at 15:
+<span class="math display">\[\text{Sum} = 3(1) + 9(2) + 11(1) + 7(2) +
+15(4) + 8(2) + 10(1) + 12(2) + 9(1) = 165 \implies \text{Weighted
+Average} = \frac{165}{16} = \mathbf{10.31}\]</span></li>
+<li><strong>Applications:</strong> Smoothing noise while maintaining
+center-pixel dominance.</li>
+<li><strong>Advantages:</strong> Blurs sharp edges less than a standard
+box filter of the same size.</li>
+<li><strong>Limitations:</strong> Edge blurring is still present;
+slightly more computational overhead.</li>
+<li>⭐ <strong>Must Remember:</strong> Weight values must sum to the
+normalization constant (denominator) to avoid brightness shifts.</li>
+<li>🧠 <strong>Must Understand:</strong> Giving more weight to the
+center pixel gives it more “importance” in the local average
+calculation.</li>
+<li>✍️ <strong>Exam Focus:</strong> Divide by 16 for a standard <span
+class="math inline">\(3 \times 3\)</span> weighted average mask.</li>
+<li>⚠️ <strong>Common Mistakes:</strong> Miscalculating the divisor
+(using 9 instead of 16).</li>
+</ul>
+<h4 id="c.-gaussian-filtering"><strong>C. Gaussian
+Filtering</strong></h4>
+<ul>
+<li><strong>Definition:</strong> A linear smoothing filter where the
+mask coefficients are sampled from a radially symmetric 2-D Gaussian
+distribution [4, 24].</li>
+<li><strong>Radically Symmetric Gaussian Function:</strong> <span
+class="math display">\[h(x, y) = e^{-\frac{x^2 +
+y^2}{2\sigma^2}}\]</span> [66]</li>
+<li><strong>Variable Meanings:</strong>
+<ul>
+<li><span class="math inline">\(\sigma\)</span>: Standard deviation,
+which controls the width/spread of the bell curve (blur degree)
+[38].</li>
+<li><span class="math inline">\(x, y\)</span>: Coordinate distances from
+the mask center.</li>
+</ul></li>
+<li><strong>Step-by-Step Method:</strong>
+<ol type="1">
+<li>Sample the continuous 2-D Gaussian function to generate mask
+coefficients [24].</li>
+<li>Normalize the coefficients so they sum to 1 [36].</li>
+<li>Convolve the mask with the image.</li>
+</ol></li>
+<li><strong>Applications:</strong> Optimal low-pass filtering,
+high-quality blurring, pre-processing step for Canny edge detection [27,
+41].</li>
+<li><strong>Advantages:</strong> “Well-behaved” in both spatial and
+frequency domains [25]; <strong>zero overshoot</strong> to step inputs;
+<strong>completely eliminates ringing artifacts</strong> [60]. It is
+<strong>separable</strong>, meaning a 2D Gaussian can be computed as two
+sequential 1D convolutions, making it highly efficient [10].</li>
+<li><strong>Limitations:</strong> Slightly more complex to compute than
+box blurs.</li>
+<li>⭐ <strong>Must Remember:</strong> The degree of blur is controlled
+by standard deviation <span class="math inline">\(\sigma\)</span>, not
+by mask size [25].</li>
+<li>🧠 <strong>Must Understand:</strong> A 2D Gaussian filter is
+separable into a pair of 1D Gaussian filters, which reduces complexity
+from <span class="math inline">\(O(M^2)\)</span> to <span
+class="math inline">\(O(2M)\)</span> [10, 244].</li>
+<li>✍️ <strong>Exam Focus:</strong> State the separability property and
+explain its computational advantage.</li>
+<li>⚠️ <strong>Common Mistakes:</strong> Setting <span
+class="math inline">\(\sigma\)</span> too large or too small without
+adjusting the mask size.</li>
+</ul>
+<h4 id="d.-median-filter-non-linear-order-statistic-filter"><strong>D.
+Median Filter (Non-linear Order-Statistic Filter)</strong></h4>
+<ul>
+<li><strong>Definition:</strong> A non-linear spatial filter that
+replaces the center pixel value with the median of all pixel intensities
+in its neighborhood window [20, 161].</li>
+<li><strong>Step-by-Step Method:</strong>
+<ol type="1">
+<li>Extract all pixel intensities inside the <span
+class="math inline">\(M \times N\)</span> neighborhood window
+[308].</li>
+<li>Sort these values in ascending (or descending) order [308].</li>
+<li>Identify the middle value of the sorted list (the median)
+[308].</li>
+<li>Replace the original center pixel value with this median [308].</li>
+</ol></li>
+<li><strong>Example (3x3 window, center pixel 30):</strong> <span
+class="math display">\[\text{Neighborhood} = \begin{bmatrix} 8 &amp; 17
+&amp; 4 \\ 3 &amp; 30 &amp; 6 \\ 15 &amp; 10 &amp; 7
+\end{bmatrix}\]</span> Sorted list:
+<code>[3, 4, 6, 7, 8, 10, 15, 17, 30]</code>. Median = 8. Output
+replaces 30 with <strong>8</strong>.</li>
+<li><strong>Applications:</strong> Outstanding for removing <strong>Salt
+and Pepper noise</strong> (impulsive binary noise) [197, 247].</li>
+<li><strong>Advantages:</strong> Removes impulse noise with <strong>no
+edge blurring</strong>, preserving sharp boundaries [247, 292]. Unlike
+average filters, it never creates new gray levels not present in the
+original neighborhood [249].</li>
+<li><strong>Limitations:</strong> Non-linear (cannot be analyzed in
+frequency domain); computationally slower due to sorting overhead; fails
+if noise occupies <span class="math inline">\(&gt;50\%\)</span> of the
+window area.</li>
+<li>⭐ <strong>Must Remember:</strong> Mask dimensions must be odd to
+ensure a unique single center pixel and unique median index.</li>
+<li>🧠 <strong>Must Understand:</strong> It does not blend or average
+pixel values; it simply selects an existing value from the
+neighborhood.</li>
+<li>✍️ <strong>Exam Focus:</strong> Show the sorted array of 9 pixels
+clearly before picking the 5th element!</li>
+<li>⚠️ <strong>Common Mistakes:</strong> Selecting the mean instead of
+sorting to find the median.</li>
+</ul>
+<hr />
+<h3 id="comparison-of-smoothing-filters">3. Comparison of Smoothing
+Filters</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Smoothing Filter</th>
+<th style="text-align: left;">Mathematical Type</th>
+<th style="text-align: left;">Edge Preservation</th>
+<th style="text-align: left;">Optimal Noise Target</th>
+<th style="text-align: left;">Visual Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Average (Box)</strong></td>
+<td style="text-align: left;">Linear (Equal weights) [83]</td>
+<td style="text-align: left;">Poor (Heavy blurring) [292]</td>
+<td style="text-align: left;">Gaussian noise</td>
+<td style="text-align: left;">Blurs details, checkerboard borders
+[39]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Weighted Average</strong></td>
+<td style="text-align: left;">Linear (Distance weights) [125]</td>
+<td style="text-align: left;">Moderate [125]</td>
+<td style="text-align: left;">Gaussian noise</td>
+<td style="text-align: left;">Smooth blur with center-focus details</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Gaussian Filter</strong></td>
+<td style="text-align: left;">Linear (Separable bell curve) [10]</td>
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: left;">Gaussian noise [235]</td>
+<td style="text-align: left;">Smooth blur, <strong>no ringing
+artifacts</strong> [60]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Median Filter</strong></td>
+<td style="text-align: left;">Non-linear (Sorting-based) [20]</td>
+<td style="text-align: left;">Excellent (Sharp edges preserved)
+[292]</td>
+<td style="text-align: left;">Salt &amp; Pepper noise [247]</td>
+<td style="text-align: left;">Noise removed, fine lines preserved
+[292]</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="section-5-quick-revision-sheet">📝 SECTION 5: QUICK REVISION
+SHEET</h2>
+<h3 id="point-processing-formula-directory">1. Point Processing Formula
+Directory</h3>
+<ul>
+<li><strong>Digital Negative:</strong> <span class="math inline">\(s =
+(L - 1) - r\)</span> [66]</li>
+<li><strong>Piecewise Linear Slopes:</strong> <span
+class="math display">\[\alpha = \frac{s_1}{r_1}, \quad \beta = \frac{s_2
+- s_1}{r_2 - r_1}, \quad \gamma = \frac{(L-1) - s_2}{(L-1) -
+r_2}\]</span> [281]</li>
+<li><strong>Log Transform:</strong> <span class="math inline">\(s = c
+\log_{10}(1 + r)\)</span> [41, 65, 256]</li>
+<li><strong>Power-Law Transform:</strong> <span class="math inline">\(s
+= c \cdot r^{\gamma}\)</span> [43, 65, 231]</li>
+<li><strong>Histogram Equalization:</strong> <span
+class="math inline">\(s_k = \text{round}\left( (L - 1) \cdot
+\sum_{j=0}^{k} \frac{n_j}{N} \right)\)</span></li>
+</ul>
+<hr />
+<h2 id="out-of-mid-sem-syllabus-do-not-study">⚠️ OUT OF MID-SEM SYLLABUS
+— DO NOT STUDY</h2>
+<p><em>The following topics are not included in the Mid-Sem syllabus but
+are kept here strictly for reference to align with the complete Unit 2
+presentation material:</em></p>
+<h3 id="sharpening-filters-high-pass-derivatives">1. Sharpening Filters
+(High-Pass / Derivatives)</h3>
+<ul>
+<li><strong>Basic Concept:</strong> Highlights transitions in intensity
+levels, enhancing edges and fine structural details [174].</li>
+<li><strong>The Laplacian Operator:</strong> A 2-D second-order
+isotropic derivative operator [116]. <span
+class="math display">\[\text{Standard Laplacian Mask} = \begin{bmatrix}
+0 &amp; 1 &amp; 0 \\ 1 &amp; -4 &amp; 1 \\ 0 &amp; 1 &amp; 0
+\end{bmatrix} \quad \text{or} \quad \begin{bmatrix} 1 &amp; 1 &amp; 1 \\
+1 &amp; -8 &amp; 1 \\ 1 &amp; 1 &amp; 1 \end{bmatrix}\]</span></li>
+<li><strong>Step-by-Step Sharpening Numerical (LMS Notes):</strong> For
+target pixel <span class="math inline">\((2,2)\)</span> in: <span
+class="math display">\[I = \begin{bmatrix} 10 &amp; 20 &amp; 30 &amp; 40
+\\ 40 &amp; 30 &amp; 20 &amp; 10 \\ 10 &amp; 20 &amp; 30 &amp; 40 \\ 40
+&amp; 30 &amp; 20 &amp; 10 \end{bmatrix}\]</span> Using a Laplacian
+filter having a <strong>positive center without diagonal
+elements</strong>: <span class="math display">\[H = \begin{bmatrix} 0
+&amp; -1 &amp; 0 \\ -1 &amp; 4 &amp; -1 \\ 0 &amp; -1 &amp; 0
+\end{bmatrix} \implies g(2,2) = 20(-1) + 40(-1) + 20(-1) + 20(-1) +
+30(4) = \mathbf{0}\]</span></li>
+</ul>
+</body>
+</html>
